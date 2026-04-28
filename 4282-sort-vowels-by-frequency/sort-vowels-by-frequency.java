@@ -4,53 +4,41 @@ class Solution {
 
         for(int k=0;k<s.length();k++){
             char ch = s.charAt(k);
-            if(ch == 'a') a++;
-            else if(ch == 'e') e++;
-            else if(ch == 'i') i++;
-            else if(ch == 'o') o++;
-            else if(ch == 'u') u++;
+            if(ch=='a') a++;
+            else if(ch=='e') e++;
+            else if(ch=='i') i++;
+            else if(ch=='o') o++;
+            else if(ch=='u') u++;
         }
 
-        int[] first = new int[5];
-        for(int k=0;k<5;k++) first[k] = -1;
+        int fa = -1, fe = -1, fi = -1, fo = -1, fu = -1;
 
         for(int k=0;k<s.length();k++){
             char ch = s.charAt(k);
-            if(ch=='a' && first[0]==-1) first[0]=k;
-            else if(ch=='e' && first[1]==-1) first[1]=k;
-            else if(ch=='i' && first[2]==-1) first[2]=k;
-            else if(ch=='o' && first[3]==-1) first[3]=k;
-            else if(ch=='u' && first[4]==-1) first[4]=k;
+            if(ch=='a' && fa==-1) fa = k;
+            else if(ch=='e' && fe==-1) fe = k;
+            else if(ch=='i' && fi==-1) fi = k;
+            else if(ch=='o' && fo==-1) fo = k;
+            else if(ch=='u' && fu==-1) fu = k;
         }
-
-        List<int[]> list = new ArrayList<>();
-        list.add(new int[]{a, 0, first[0]});
-        list.add(new int[]{e, 1, first[1]});
-        list.add(new int[]{i, 2, first[2]});
-        list.add(new int[]{o, 3, first[3]});
-        list.add(new int[]{u, 4, first[4]});
-
-        Collections.sort(list, (x, y) -> {
-        if(y[0] != x[0]) return y[0] - x[0];
-        return x[2] - y[2];
-        });
 
         StringBuilder vowelOrder = new StringBuilder();
 
-        for(int k=0;k<list.size();k++){
-            int[] arr = list.get(k);
-            int count = arr[0];
-            char ch = 'a';
-
-            if(arr[1] == 0) ch = 'a';
-            else if(arr[1] == 1) ch = 'e';
-            else if(arr[1] == 2) ch = 'i';
-            else if(arr[1] == 3) ch = 'o';
-            else ch = 'u';
-
-            while(count > 0){
-                vowelOrder.append(ch);
-                count--;
+        for(int t=0;t<5;t++){
+            if(a>0 && (a>e || (a==e && fa<fe)) && (a>i || (a==i && fa<fi)) && (a>o || (a==o && fa<fo)) && (a>u || (a==u && fa<fu))){
+                while(a-- > 0) vowelOrder.append('a');
+            }
+            else if(e>0 && (e>a || (e==a && fe<fa)) && (e>i || (e==i && fe<fi)) && (e>o || (e==o && fe<fo)) && (e>u || (e==u && fe<fu))){
+                while(e-- > 0) vowelOrder.append('e');
+            }
+            else if(i>0 && (i>a || (i==a && fi<fa)) && (i>e || (i==e && fi<fe)) && (i>o || (i==o && fi<fo)) && (i>u || (i==u && fi<fu))){
+                while(i-- > 0) vowelOrder.append('i');
+            }
+            else if(o>0 && (o>a || (o==a && fo<fa)) && (o>e || (o==e && fo<fe)) && (o>i || (o==i && fo<fi)) && (o>u || (o==u && fo<fu))){
+                while(o-- > 0) vowelOrder.append('o');
+            }
+            else if(u>0){
+                while(u-- > 0) vowelOrder.append('u');
             }
         }
 

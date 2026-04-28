@@ -16,12 +16,12 @@ class Solution {
 
         for(int i = n - 2; i >= 0; i--){
             if(nums[i] > maxright){
-                right[i]++;
+                right[i] = 1;
             }
             maxright = Math.max(maxright, nums[i]);
         }
         for(int i = 1; i < n - 1; i++){
-            if(left[i] > 0 || right[i] > 0){
+            if(left[i] == 1 || right[i] == 1){
                 res.add(nums[i]);
             }
         }

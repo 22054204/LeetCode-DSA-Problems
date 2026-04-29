@@ -17,10 +17,13 @@ class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
         // preorder = NLR -> Node Left Right
         List<Integer> list = new ArrayList<>();
-        if(root == null) return list;
-        list.add(root.val);
-        list.addAll(preorderTraversal(root.left));
-        list.addAll(preorderTraversal(root.right));
+        preOrder(root, list);
         return list;
+    }
+    private static void preOrder(TreeNode root, List<Integer> list){
+        if(root == null) return;
+        list.add(root.val);
+        preOrder(root.left, list);
+        preOrder(root.right, list);
     }
 }

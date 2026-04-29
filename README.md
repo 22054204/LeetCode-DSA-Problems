@@ -37,7 +37,7 @@ This repository tracks my DSA practice and showcases my coding consistency and p
 
 ## 🔗 Profile
 Check out my LeetCode profile for more:
-👉 (Add your LeetCode profile link here)
+👉 (https://leetcode.com/u/ranjan_22054204/)
 
 ---
 

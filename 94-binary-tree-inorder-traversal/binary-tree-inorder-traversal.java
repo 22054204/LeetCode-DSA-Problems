@@ -17,7 +17,6 @@ class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
       // inorder = LNR -> Left Node Right
         List<Integer> result = new ArrayList<>();
-        if(root == null) return result;
         Stack<TreeNode> st = new Stack<>();
         while(root!=null || !st.isEmpty()){
             while(root != null){

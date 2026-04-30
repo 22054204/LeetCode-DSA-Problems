@@ -21,17 +21,11 @@ class Solution {
         Stack<TreeNode> st = new Stack<>();
         st.push(root);
         while(!st.isEmpty()){
-            if(root.right!=null) st.push(root.right);
-            if(root.left!=null) st.push(root.left);
             TreeNode node = st.pop();
             result.add(node.val);
-            root = node;
+            if(node.right!=null) st.push(node.right);
+            if(node.left!=null) st.push(node.left);
         }
-        helper(result);
-        return result;
-    }
-    public static void helper(List<Integer> result){
-        Collections.reverse(result);
-        Collections.reverse(result.subList(1, result.size()));
+        return result;  
     }
 }

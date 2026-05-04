@@ -1,9 +1,7 @@
-SELECT IFNULL(
-    (SELECT DISTINCT salary
-     FROM (
-         SELECT DISTINCT salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
-         FROM Employee
-     ) ranked
-     WHERE rnk = 2),
-    NULL
-) AS SecondHighestSalary;
+SELECT
+  (
+    SELECT DISTINCT salary
+    FROM Employee
+    ORDER BY salary DESC
+    LIMIT 1 OFFSET 1
+  ) AS SecondHighestSalary;

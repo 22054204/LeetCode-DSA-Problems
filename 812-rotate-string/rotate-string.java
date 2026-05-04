@@ -1,6 +1,6 @@
 class Solution {
     public boolean rotateString(String s, String goal) {
-        return BruteForce(s, goal);
+        return Optimal(s, goal);
     }
     public boolean Optimal(String s, String goal) {
         if(s.length()!=goal.length()) return false;

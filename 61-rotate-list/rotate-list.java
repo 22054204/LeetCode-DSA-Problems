@@ -8,39 +8,72 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
-        if (head == null || head.next == null || k == 0) return head;
-       ArrayList<Integer> list = new ArrayList<>();
-       ListNode temp = head;
-       while(temp!=null){
-        list.add(temp.val);
-        temp = temp.next;
-       }
-        int n = list.size();
-        k = k%n;
+        if(head==null||head.next==null||k==0) return head;
+        int size = 0;
+        ListNode temp1 = head;
+        ListNode last = null;
+        while(temp1!=null){
+            size++;
+            last = temp1;
+            temp1 = temp1.next;
+        }
+        k = k%size;
         if(k == 0) return head;
+        // Step 1: reverse whole list
+        head = helper(head);
 
-        rotate(list, 0, n-1);
-        rotate(list, 0, k-1);
-        rotate(list, k, n-1);
-
-        temp = head;
-        int i = 0;
-        while(temp!=null){
-            temp.val = list.get(i);
-            i++;    
+        // Step 2: reverse first k nodes
+        ListNode firstHead = head;
+        ListNode temp = head;
+        for(int i = 1; i < k; i++){
             temp = temp.next;
         }
-       return head;
-    }
-    void rotate(ArrayList<Integer> list, int i, int j){
-        while(i<j){
-        int temp = list.get(i);
-        list.set(i, list.get(j));
-        list.set(j, temp);
-        i++;
-        j--;
+        ListNode secondHead = temp.next;
+        temp.next = null;
+        firstHead = helper(firstHead);
+        secondHead = helper(secondHead);
+
+        // Step 3: connect both parts
+        ListNode curr = firstHead;
+        while(curr.next != null){
+            curr = curr.next;
         }
+
+        curr.next = secondHead;
+
+        return firstHead;
     }
+    public static ListNode helper(ListNode head){
+        ListNode dummy = null;
+        ListNode prev = dummy;
+        ListNode curr = head;
+        while(curr!=null){
+            ListNode Next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = Next;
+        }
+        return prev;
+    }
+    // public static void helper1(ListNode head, int k){
+    //     ListNode temp1 = head;
+    //     ListNode dummy = null;
+    //     ListNode temp2 = head;
+    //     while(temp2.next!=null){
+    //         prev.next = temp2;
+    //         temp2 = temp2.next;
+    //     }
+    //     helper2(head, k, temp1, temp2);
+    // }
+    // private static void helper2(ListNode head, int k, ListNode temp1, ListNode temp2){
+    //     while(k!=0){
+    //         prev.next = null;
+    //         temp2.next = temp1
+            
+    //         k--;
+    //     }
+    // }
 }

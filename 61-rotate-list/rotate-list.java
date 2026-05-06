@@ -58,22 +58,4 @@ class Solution {
         }
         return prev;
     }
-    // public static void helper1(ListNode head, int k){
-    //     ListNode temp1 = head;
-    //     ListNode dummy = null;
-    //     ListNode temp2 = head;
-    //     while(temp2.next!=null){
-    //         prev.next = temp2;
-    //         temp2 = temp2.next;
-    //     }
-    //     helper2(head, k, temp1, temp2);
-    // }
-    // private static void helper2(ListNode head, int k, ListNode temp1, ListNode temp2){
-    //     while(k!=0){
-    //         prev.next = null;
-    //         temp2.next = temp1
-            
-    //         k--;
-    //     }
-    // }
 }

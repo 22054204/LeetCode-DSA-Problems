@@ -22,6 +22,7 @@ class Solution {
         }
         k = k%size;
         if(k == 0) return head;
+        
         // Step 1: reverse whole list
         head = helper(head);
 
@@ -41,7 +42,6 @@ class Solution {
         while(curr.next != null){
             curr = curr.next;
         }
-
         curr.next = secondHead;
 
         return firstHead;

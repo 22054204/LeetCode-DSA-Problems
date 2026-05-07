@@ -1,8 +1,5 @@
 class Solution {
     public int gcdOfOddEvenSums(int n) {
-        return trick(n);
-    }
-    public int trick(int n) {
         return n;
     }
     public int sol(int n) {

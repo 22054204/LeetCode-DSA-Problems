@@ -1,7 +1,6 @@
 class Solution {
     public int minimumFlips(int n) {
         StringBuilder sb = new StringBuilder();
-        StringBuilder sb2 = new StringBuilder();
         sb.append(Integer.toBinaryString(n));
         int i=0;
         int j=sb.length()-1;

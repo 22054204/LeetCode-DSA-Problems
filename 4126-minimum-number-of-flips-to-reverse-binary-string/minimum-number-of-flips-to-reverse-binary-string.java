@@ -4,9 +4,7 @@ class Solution {
         StringBuilder sb2 = new StringBuilder();
         sb.append(Integer.toBinaryString(n));
         sb2.append(Integer.toBinaryString(n));
-        System.out.println(sb);
         sb2.reverse();
-        System.out.println(sb2);
         int i=0;
         int j=0;
         int ans=0;

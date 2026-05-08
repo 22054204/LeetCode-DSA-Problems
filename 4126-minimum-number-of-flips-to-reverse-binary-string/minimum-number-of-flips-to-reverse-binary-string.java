@@ -3,19 +3,17 @@ class Solution {
         StringBuilder sb = new StringBuilder();
         StringBuilder sb2 = new StringBuilder();
         sb.append(Integer.toBinaryString(n));
-        sb2.append(Integer.toBinaryString(n));
-        sb2.reverse();
         int i=0;
-        int j=0;
+        int j=sb.length()-1;
         int ans=0;
-        while(i<sb.length() && j<sb2.length()){
-            if(sb.charAt(i)==sb2.charAt(j)){
+        while(i<sb.length()){
+            if(sb.charAt(i)==sb.charAt(j)){
                 i++;
-                j++;
+                j--;
             }else{
                 ans++;
                 i++;
-                j++;
+                j--;
             }
         }
         return ans;

@@ -6,15 +6,12 @@ class Solution {
         for(int i=0;i<n;i++){
             result[i] = nums[i];
         }
-        System.out.println(Arrays.toString(result));
         reverse(nums, n);
-        System.out.println(Arrays.toString(nums));
         int j=0;
         for(int i=n;i<m;i++){
             result[i] = nums[j];
             j++;
         }
-        System.out.println(Arrays.toString(result));
         return result;
     }
     private static void reverse(int[]nums, int n){

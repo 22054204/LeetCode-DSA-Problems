@@ -1,8 +1,21 @@
 class Solution {
     public int findMin(int[] nums) {
-        return BS(nums);
+        return BS2(nums);
     }
-    private int BS(int[] nums) {
+    private int BS1(int[] nums) {
+        int start = 0;
+        int end = nums.length-1;
+        while(start < end){
+            int mid = start + (end - start)/2;
+            if(nums[mid] > nums[end]){
+                start = mid + 1;
+            }else{
+                end = mid;
+            }
+        }
+        return nums[start];
+    }
+    private int BS2(int[] nums) {
         int min = Integer.MAX_VALUE;
         int start = 0;
         int end = nums.length-1;

@@ -1,6 +1,6 @@
 class Solution {
     public int findMin(int[] nums) {
-        return BS2(nums);
+        return BS1(nums);
     }
     private int BS1(int[] nums) {
         int start = 0;

@@ -1,13 +1,22 @@
 class Solution {
     public int[] separateDigits(int[] nums) {
-        String s = "";
-        for(int i=0;i<nums.length;i++){
-            s += nums[i];
+        List<Integer> list = new ArrayList<>();
+        for(int i=nums.length-1;i>=0;i--){
+            int num = nums[i];
+            helper(list, num);
         }
-        int[] arr = new int[s.length()];
-        for(int i=0;i<arr.length;i++){
-            arr[i] = s.charAt(i) - '0';
+        Collections.reverse(list);
+        int[] result = new int[list.size()];
+        int idx = 0;
+        for(int number:list){
+            result[idx++] = number;
         }
-        return arr;
+        return result;
+    }
+    private static void helper(List<Integer> list, int num){
+        while(num>0){
+            list.add(num%10);
+            num = num/10;
+        }
     }
 }

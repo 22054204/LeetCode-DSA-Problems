@@ -1,6 +1,6 @@
 class Solution {
     public int findMin(int[] nums) {
-        return LinearSearch(nums);
+        return Sorting(nums);
     }
     private int LinearSearch(int[] nums) {
         int min = Integer.MAX_VALUE;
@@ -9,5 +9,9 @@ class Solution {
         }
         if(min == Integer.MAX_VALUE) return -1;
         return min;
+    }
+    private int Sorting(int[] nums){
+        Arrays.sort(nums);
+        return nums[0];
     }
 }

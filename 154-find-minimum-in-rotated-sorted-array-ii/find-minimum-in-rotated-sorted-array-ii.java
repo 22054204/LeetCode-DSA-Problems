@@ -1,6 +1,31 @@
 class Solution {
     public int findMin(int[] nums) {
-        return LinearSearch(nums);
+        return BS(nums);
+    }
+    private int BS(int[] nums){
+        int start = 0;
+        for(int i=0;i<nums.length-1;i++){
+            if(nums[i]!=nums[i+1]){
+                start = i;
+                break;
+            }
+        }
+        int end = 0;
+        for(int i=nums.length-1;i>0;i--){
+            if(nums[i]!=nums[i-1]){
+                end = i;
+                break;
+            }
+        }
+        while(start<end){
+            int mid = start+(end-start)/2;
+            if(nums[mid]>nums[end]){
+                start = mid+1;
+            }else{
+                end = mid;
+            }
+        }
+        return nums[start];
     }
     private int LinearSearch(int[] nums) {
         int min = Integer.MAX_VALUE;

@@ -4,10 +4,10 @@ class Solution {
             return r - l + 1;
         }
         int count = 0;
-        for(long i=0;i<=r;i++){
+        for(int i=0;i<=r;i++){
             long power = (long)Math.pow(i, k);
             if(power>r) break;
-            if(power>=l&&power<=r){
+            if(power>=l && power<=r){
                 count++;
             }
         }

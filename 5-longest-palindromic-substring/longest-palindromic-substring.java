@@ -16,8 +16,7 @@ class Solution {
             String t = list.get(i);
             lenList.add(t.length());
         }
-        Collections.sort(lenList);
-        int maxLen = lenList.get(lenList.size()-1);
+        int maxLen = maxLen(lenList);
         for(int i=0;i<list.size();i++){
             String a = list.get(i);
             if(a.length()==maxLen){
@@ -35,5 +34,15 @@ class Solution {
             j--;
         }
         return true;
+    }
+    private static int maxLen(List<Integer> list){
+        if(list.size()==0) return 0;
+        int max = list.get(0);
+        for(int i=1;i<list.size();i++){
+            if(list.get(i)>max){
+                max = list.get(i);
+            }
+        }
+        return max;
     }
 }

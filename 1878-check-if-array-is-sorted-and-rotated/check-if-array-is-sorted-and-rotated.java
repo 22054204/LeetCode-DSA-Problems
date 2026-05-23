@@ -2,6 +2,7 @@ class Solution {
     public boolean check(int[] nums) {
         return optimal(nums);
     }
+    // Method - 1
     private boolean optimal(int[] nums) {
         int n = nums.length;
         int count=0;
@@ -15,6 +16,7 @@ class Solution {
         }
         return true;
     }
+    // Method - 2
     private boolean BruteForce(int[] nums) {
         int[] arr = nums.clone();
         Arrays.sort(arr);

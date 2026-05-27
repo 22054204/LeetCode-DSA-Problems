@@ -1,5 +1,25 @@
 class Solution {
     public String longestPalindrome(String s) {
+        return Optimal(s);
+    }
+    public String Optimal(String s) {
+        String ans = "";
+        int len = 0;
+        for(int i=0;i<s.length();i++){
+            for(int j=s.length()-1;j>=0;j--){
+                if(isPalindrome(s, i, j)){
+                    String temp = s.substring(i, j+1);
+                    if(temp.length() > len){
+                        len = temp.length();
+                        ans = temp;
+                    }
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+    public String BruteForce(String s) {
         List<String> list = new ArrayList<>();
         List<Integer> lenList = new ArrayList<>();
         for(int i=0;i<s.length();i++){

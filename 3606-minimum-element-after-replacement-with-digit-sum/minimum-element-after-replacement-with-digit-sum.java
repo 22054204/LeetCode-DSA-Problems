@@ -4,8 +4,7 @@ class Solution {
         for(int i=0;i<arr.length;i++){
             arr[i] = helper(nums[i]);
         }
-        Arrays.sort(arr);
-        return arr[0];
+        return findMin(arr);
     }
     private static int helper(int num){
         int sum = 0;
@@ -14,5 +13,12 @@ class Solution {
             num = num/10;
         }
         return sum;
+    }
+    private static int findMin(int[] arr){
+        int min = arr[0];
+        for(int i=1;i<arr.length;i++){
+            min = Math.min(min, arr[i]);
+        }
+        return min;
     }
 }

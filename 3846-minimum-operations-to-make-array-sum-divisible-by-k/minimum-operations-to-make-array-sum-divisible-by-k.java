@@ -1,7 +1,7 @@
 class Solution {
     public int minOperations(int[] nums, int k) {
-        //return Method1(nums, k);
-        return Method2(nums, k);
+        return Method1(nums, k);
+        //return Method2(nums, k);
     }
     private int Method2(int[] nums, int k) {
         return findSum(nums)%k;

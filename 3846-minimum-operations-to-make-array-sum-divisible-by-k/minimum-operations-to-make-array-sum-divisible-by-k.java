@@ -3,7 +3,7 @@ class Solution {
         //return Method1(nums, k);
         return Method2(nums, k);
     }
-    public int Method2(int[] nums, int k) {
+    private int Method2(int[] nums, int k) {
         return findSum(nums)%k;
     }
     private static int findSum(int[] nums){

@@ -3,7 +3,7 @@ class Solution {
         Arrays.sort(asteroids);
         for(int i=0;i<asteroids.length;i++){
             if(asteroids[i]>mass) return false;
-            else if(mass>=1e5) return true;
+            else if(mass>=Math.pow(10, 5)) return true;
             mass += asteroids[i];
         }
         return true;

@@ -9,6 +9,6 @@ class Solution {
                 num2 += i;
             }
         }
-        return (-1)*(num1-num2);
+        return num2-num1;
     }
 }

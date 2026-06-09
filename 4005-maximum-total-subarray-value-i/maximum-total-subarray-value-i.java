@@ -1,5 +1,17 @@
 class Solution {
     public long maxTotalValue(int[] nums, int k) {
+        return Optimal(nums, k);
+    }
+    public long Optimal(int[] nums, int k) {
+        long max = nums[0];
+        long min = nums[0];
+        for(int i=0;i<nums.length;i++){
+            max = Math.max(max, nums[i]);
+            min = Math.min(min, nums[i]);
+        }
+        return (max-min)*k;
+    }
+    public long BruteForce(int[] nums, int k) {
         long ans = 0;
         long max = max(nums);
         long min = min(nums);

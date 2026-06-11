@@ -2,15 +2,18 @@ class Solution {
     public int myAtoi(String s) {
         if(s.length()==0) return 0;
 
-        s = s.trim(); // white space remove
+        s = s.trim();
         if(s.length()==0) return 0;
 
         StringBuilder sb = new StringBuilder();
 
         int x = 0;
+        int sign = 1;
+
         if(s.charAt(0)=='+'){
             x = 1;
         }else if(s.charAt(0)=='-'){
+            sign = -1;
             sb.append(s.charAt(0));
             x = 1;
         }
@@ -46,7 +49,7 @@ class Solution {
 
             return (int)res;
         }catch(Exception e){
-            if(sb.charAt(0)=='-') return Integer.MIN_VALUE;
+            if(sign==-1) return Integer.MIN_VALUE;
             return Integer.MAX_VALUE;
         }
     }

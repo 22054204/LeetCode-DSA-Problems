@@ -10,14 +10,11 @@ class Solution {
         }
 
         for(int i=0;i<words.length;i++){
-            String s = words[i];
             int sum = 0;
-            for(int j=0;j<s.length();j++){
-                sum += weights[map.get(s.charAt(j))];
+            for(int j=0;j<words[i].length();j++){
+                sum += weights[map.get(words[i].charAt(j))];
             }
-            int num = (sum%26);
-            char ch = arr1[25-num];
-            result.append(ch);
+            result.append(arr1[25-(sum%26)]);
         }
         return result.toString();
     }

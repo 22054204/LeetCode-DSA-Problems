@@ -1,6 +1,6 @@
 class Solution {
     public String mapWordWeights(String[] words, int[] weights) {
-        StringBuilder result = new StringBuilder();
+        String s = "";
 
         char[] arr1 = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 
@@ -14,8 +14,8 @@ class Solution {
             for(int j=0;j<words[i].length();j++){
                 sum += weights[map.get(words[i].charAt(j))];
             }
-            result.append(arr1[25-(sum%26)]);
+            s += arr1[25-(sum%26)];
         }
-        return result.toString();
+        return s;
     }
 }

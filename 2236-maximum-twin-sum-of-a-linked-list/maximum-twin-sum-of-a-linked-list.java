@@ -25,14 +25,8 @@ class Solution {
     private static int helper2(List<Integer> list){
         int n = list.size();
         int maxSum = 0;
-        for(int i=0;i<n;i++){
-            int a = 0;
-            int b = 0;
-            if(i>=0 && i<=(n/2)-1){
-                a = list.get(i);
-                b = list.get(n-1-i);
-            }
-            maxSum = Math.max(maxSum, a+b);
+        for(int i=0;i<=(n/2)-1;i++){
+            maxSum = Math.max(maxSum, list.get(i)+list.get(n-1-i));
         }
         return maxSum;
     }

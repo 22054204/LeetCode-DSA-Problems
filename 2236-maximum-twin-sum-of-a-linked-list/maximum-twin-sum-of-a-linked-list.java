@@ -10,10 +10,10 @@
  */
 class Solution {
     public int pairSum(ListNode head) {
-        return TrickToPassQues(head);
+        return Method2(head);
     }
     // Store linked list values in an ArrayList for O(1) index access.
-    private int TrickToPassQues(ListNode head) {
+    private int Method2(ListNode head) {
         List<Integer> list = new ArrayList<>();
         ListNode temp = head;
         while(temp!=null){

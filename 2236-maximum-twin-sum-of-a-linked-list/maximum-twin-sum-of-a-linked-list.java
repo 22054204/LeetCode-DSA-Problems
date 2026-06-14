@@ -41,7 +41,7 @@ class Solution {
         temp1 = head;
         int i=0;
         int maxSum = 0;
-        while(temp1!=null && i<n && i>=0 && i<=(n/2)-1){
+        while(i < n/2){
             int a = temp1.val;
             int b = helper1(head, n-1-i);
             maxSum = Math.max(maxSum, a+b);

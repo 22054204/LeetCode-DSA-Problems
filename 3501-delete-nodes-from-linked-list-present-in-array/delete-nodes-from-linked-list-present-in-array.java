@@ -20,20 +20,13 @@ class Solution {
         for (int num : nums) {
             set.add(num);
         }
-
-        List<Integer> result = new ArrayList<>();
-        for (int num : list) {
-            if (!set.contains(num)) {
-                result.add(num);
-            }
-        }
         ListNode ans = new ListNode(-1);
         ListNode ptr = ans;
-        int i=0;
-        while(i<result.size()){
-            ptr.next = new ListNode(result.get(i));
-            ptr = ptr.next;
-            i++;
+        for (int num : list) {
+            if (!set.contains(num)) {
+                ptr.next = new ListNode(num);
+                ptr = ptr.next;
+            }
         }
         return ans.next;
     }

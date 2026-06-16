@@ -26,7 +26,7 @@ class Solution {
 
     public void treeToListInOrder(TreeNode node, List<Integer> list) {
         if (node == null) {
-            list.add(-10001);
+            list.add((int)-10e4+1);
             return;
         }
         list.add(node.val);

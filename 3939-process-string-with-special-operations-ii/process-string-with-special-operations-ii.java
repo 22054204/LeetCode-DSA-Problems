@@ -1,6 +1,5 @@
 class Solution {
     public char processStr(String s, long k) {
-        List<Long> list = new ArrayList<>();
         long length = 0;
         long LIMIT = (long)1e15 + 1;
         for(int i=0;i<s.length();i++){
@@ -8,7 +7,7 @@ class Solution {
             if(ch>='a' && ch<='z'){
                 length++;
             }else if(ch=='*'){
-                if(length>=1){
+                if(length>0){
                     length--;
                 }
             }
@@ -18,29 +17,27 @@ class Solution {
             else if(ch=='%'){
                 length = length;
             }
-            list.add(length);
         }
         if(k>=length) return '.';
-
-        for (int i=s.length()-1;i>=0;i--) {
+        for(int i=s.length()-1;i>=0;i--){
             char ch = s.charAt(i);
 
-            long after = list.get(i);
-            long before = (i == 0) ? 0 : list.get(i - 1);
-
-            if(ch>='a' && ch<='z') {
-                if(k==before) {
-                    return ch;
-                }
-            } else if(ch=='#') {
-                if(before > 0) {
-                    k %= before;
-                }
-            } else if(ch=='%') {
-                k = before - 1 - k;
-            } else{ // '*'
-                // nothing to do
+            if(ch>='a' && ch<='z'){
+                length--;
+            }else if(ch=='*'){
+                length++;
             }
+            else if(ch=='#'){
+                length/=2;
+                if(k>=length){
+                    k -= length;
+                }
+            }
+            else if(ch=='%'){
+                length = length;
+                k = length-k-1;
+            }
+            if(length==k) return ch;
         }
         return '.';
     }

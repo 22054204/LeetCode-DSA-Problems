@@ -12,10 +12,10 @@ class Solution {
                 }
             }
             else if(ch=='#'){
-                length *= 2;
+                length += length;
             }
             else if(ch=='%'){
-                length = length;
+                continue;
             }
         }
         if(k>=length) return '.';

@@ -1,8 +1,9 @@
 class Solution {
     public char processStr(String s, long k) {
         long length = 0;
-        for(int i=0;i<s.length();i++){
-            char ch = s.charAt(i);
+        char[] arr = s.toCharArray();
+        for(int i=0;i<arr.length;i++){
+            char ch = arr[i];
             if(ch>='a' && ch<='z'){
                 length++;
             }else if(ch=='*'){
@@ -18,8 +19,8 @@ class Solution {
             }
         }
         if(k>=length) return '.';
-        for(int i=s.length()-1;i>=0;i--){
-            char ch = s.charAt(i);
+        for(int i=arr.length-1;i>=0;i--){
+            char ch = arr[i];
 
             if(ch>='a' && ch<='z'){
                 length--;

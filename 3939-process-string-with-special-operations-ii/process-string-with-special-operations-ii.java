@@ -1,7 +1,6 @@
 class Solution {
     public char processStr(String s, long k) {
         long length = 0;
-        long LIMIT = (long)1e15 + 1;
         for(int i=0;i<s.length();i++){
             char ch = s.charAt(i);
             if(ch>='a' && ch<='z'){
@@ -12,7 +11,7 @@ class Solution {
                 }
             }
             else if(ch=='#'){
-                length = Math.min(LIMIT, length * 2);
+                length *= 2;
             }
             else if(ch=='%'){
                 length = length;
@@ -28,7 +27,7 @@ class Solution {
                 length++;
             }
             else if(ch=='#'){
-                length/=2;
+                length /= 2;
                 if(k>=length){
                     k -= length;
                 }

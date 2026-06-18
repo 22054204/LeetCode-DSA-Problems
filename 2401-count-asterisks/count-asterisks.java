@@ -14,13 +14,11 @@ class Solution {
         }
         if(!miniList.isEmpty()) list.add(miniList);
         int count = 0;
-        for(int i=0;i<list.size();i++){
-            if(i%2==0){
-                List<Character> a = list.get(i);
-                for(int j=0;j<a.size();j++){
-                    if(a.get(j)=='*'){
-                        count++;
-                    }
+        for(int i=0;i<list.size();i=i+2){
+        List<Character> a = list.get(i);
+            for(int j=0;j<a.size();j++){
+                if(a.get(j)=='*'){
+                    count++;
                 }
             }
         }

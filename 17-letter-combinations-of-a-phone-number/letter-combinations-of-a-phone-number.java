@@ -5,6 +5,7 @@ class Solution {
         if(digits.length()==0){
             return res;
         }
+
         map.put(2,"abc");
         map.put(3,"def");
         map.put(4,"ghi");
@@ -14,21 +15,52 @@ class Solution {
         map.put(8,"tuv");
         map.put(9,"wxyz");
 
-        Generate(digits,0,new StringBuilder(),res);
+        if(digits.length()==1){
+            String s1 = map.get(digits.charAt(0)-'0');
+            for(int i=0;i<s1.length();i++){
+                res.add("" + s1.charAt(i));
+            }
+        }
+
+        else if(digits.length()==2){
+            String s1 = map.get(digits.charAt(0)-'0');
+            String s2 = map.get(digits.charAt(1)-'0');
+            for(int i=0;i<s1.length();i++){
+                for(int j=0;j<s2.length();j++){
+                    res.add("" + s1.charAt(i) + s2.charAt(j));
+
+                }
+            }
+        }
+
+        else if(digits.length()==3){
+            String s1 = map.get(digits.charAt(0)-'0');
+            String s2 = map.get(digits.charAt(1)-'0');
+            String s3 = map.get(digits.charAt(2)-'0');
+            for(int i=0;i<s1.length();i++){
+                for(int j=0;j<s2.length();j++){
+                    for(int k=0;k<s3.length();k++){
+                        res.add("" + s1.charAt(i) + s2.charAt(j) + s3.charAt(k));
+                    }
+                }
+            }
+        }
+
+        else if(digits.length()==4){
+            String s1 = map.get(digits.charAt(0)-'0');
+            String s2 = map.get(digits.charAt(1)-'0');
+            String s3 = map.get(digits.charAt(2)-'0');
+            String s4 = map.get(digits.charAt(3)-'0');
+            for(int i=0;i<s1.length();i++){
+                for(int j=0;j<s2.length();j++){
+                    for(int k=0;k<s3.length();k++){
+                        for(int l=0;l<s4.length();l++){
+                            res.add("" + s1.charAt(i) + s2.charAt(j) + s3.charAt(k) + s4.charAt(l));
+                        }
+                    }
+                }
+            }
+        }
         return res;
-    }
-    public void Generate(String digits, int index, StringBuilder sb, List<String> res){
-
-        if(index==digits.length()){
-            res.add(sb.toString());
-            return;
-        }
-
-        String s = map.get(digits.charAt(index)-'0');
-        for(int i=0;i<s.length();i++){
-            sb.append(s.charAt(i));
-            Generate(digits,index+1,sb,res);
-            sb.deleteCharAt(sb.length()-1);
-        }
     }
 }

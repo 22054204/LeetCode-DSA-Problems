@@ -1,8 +1,10 @@
 class Solution {
+    HashMap<Integer,String> map = new HashMap<>();
     public List<String> letterCombinations(String digits) {
         List<String> res = new ArrayList<>();
-        
-        HashMap<Integer, String> map = new HashMap<>();
+        if(digits.length()==0){
+            return res;
+        }
         map.put(2,"abc");
         map.put(3,"def");
         map.put(4,"ghi");
@@ -12,27 +14,20 @@ class Solution {
         map.put(8,"tuv");
         map.put(9,"wxyz");
 
-        List<List<Character>> list = new ArrayList<>();
-        for(int i=0;i<digits.length();i++){
-            List<Character> miniList = new ArrayList<>();
-            String s = map.get(Integer.parseInt("" + digits.charAt(i)));
-            for(int j=0;j<s.length();j++){
-                miniList.add(s.charAt(j));
-            }
-            list.add(miniList);
-        }
-        Generate(list,0,new StringBuilder(),res);
+        Generate(digits,0,new StringBuilder(),res);
         return res;
     }
-    public void Generate(List<List<Character>> list, int index, StringBuilder sb, List<String> res){
-        if(index == list.size()){
+    public void Generate(String digits, int index, StringBuilder sb, List<String> res){
+
+        if(index==digits.length()){
             res.add(sb.toString());
             return;
         }
-        List<Character> miniList = list.get(index);
-        for(int i=0;i<miniList.size();i++){
-            sb.append(miniList.get(i));
-            Generate(list,index+1,sb,res);
+
+        String s = map.get(digits.charAt(index)-'0');
+        for(int i=0;i<s.length();i++){
+            sb.append(s.charAt(i));
+            Generate(digits,index+1,sb,res);
             sb.deleteCharAt(sb.length()-1);
         }
     }

@@ -21,19 +21,19 @@ class Solution {
             }
             list.add(miniList);
         }
-        Generate(list,0,"",res);
+        Generate(list,0,new StringBuilder(),res);
         return res;
     }
-    public void Generate(List<List<Character>> list, int index, String curr, List<String> res){
-
+    public void Generate(List<List<Character>> list, int index, StringBuilder sb, List<String> res){
         if(index == list.size()){
-            res.add(curr);
+            res.add(sb.toString());
             return;
         }
-
         List<Character> miniList = list.get(index);
         for(int i=0;i<miniList.size();i++){
-            Generate(list,index+1,curr+miniList.get(i),res);
+            sb.append(miniList.get(i));
+            Generate(list,index+1,sb,res);
+            sb.deleteCharAt(sb.length()-1);
         }
     }
 }

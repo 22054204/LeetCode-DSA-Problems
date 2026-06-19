@@ -16,11 +16,15 @@ class Solution {
         if(!t.isEmpty()) list.add(t);
         swap(list);
         
-        String res = "";
+        t = "";
         for(int i=0;i<list.size();i++){
-            res+=list.get(i) + " ";
+            if(i!=list.size()-1){
+                t+=list.get(i)+" ";
+            }else{
+                t+=list.get(i);
+            }
         }
-        return res.trim();
+        return t;
     }
     private static void swap(List<String> list){
         int i=0;

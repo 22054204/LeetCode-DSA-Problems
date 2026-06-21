@@ -7,10 +7,14 @@ class Solution {
         for(int i=0;i<costs.length;i++) {
             freq[costs[i]]++;
         }
+        int sum = 0;
         int count = 0;
         for(int cost = 1; cost <= 100000; cost++) {
-            while(freq[cost] > 0 && coins >= cost) {
-                coins -= cost;
+            while(freq[cost] > 0) {
+                sum += cost;
+                if(sum > coins) {
+                    return count;
+                }
                 count++;
                 freq[cost]--;
             }

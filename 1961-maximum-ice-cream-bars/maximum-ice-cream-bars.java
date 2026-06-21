@@ -71,3 +71,11 @@ class Solution {
         return count;
     }
 }
+
+/*
+    Method	  Approach	                  Time Complexity	  Space
+    ---------------------------------------------------------------------
+    Method1	  Frequency array directly	  O(n + 100000)	      O(100000)
+    Method2	  Counting Sort + Traverse	  O(n + maxCost)	  O(maxCost)
+    Method3	  Arrays.sort()	              O(n log n)	      O(1)
+*/

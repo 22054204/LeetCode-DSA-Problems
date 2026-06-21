@@ -3,12 +3,12 @@ class Solution {
         return Method1(costs, coins);
     }
     public int Method1(int[] costs, int coins) {
-        int[] freq = new int[(int)10e5 + 1];
+        int[] freq = new int[100001];
         for(int i=0;i<costs.length;i++) {
             freq[costs[i]]++;
         }
         int count = 0;
-        for(int cost = 1; cost <= (int)10e5; cost++) {
+        for(int cost = 1; cost <= 100000; cost++) {
             while(freq[cost] > 0 && coins >= cost) {
                 coins -= cost;
                 count++;

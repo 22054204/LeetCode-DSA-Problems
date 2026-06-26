@@ -1,40 +1,30 @@
 class Solution {
     public int countMajoritySubarrays(int[] nums, int target) {
-        return Method2(nums, target);
-    }
-    public int Method2(int[] nums, int target) {
-        int count = 0;
         for(int i=0;i<nums.length;i++){
-            int freq = 0;
-            for(int j=i;j<nums.length;j++){
-                if (nums[j] == target) freq++;
-                int len = j - i + 1;
-                if (freq > len / 2) count++;
+            if(nums[i]==target){
+                nums[i] = 1;
+            }else{
+                nums[i] = -1;
             }
         }
-        return count;
-    }
-    // Brute Force - TLE for given constraints; suitable only for small arrays.
-    public int Method1(int[] nums, int target) {
-        int count = 0;
+        //System.out.println("nums - "+ Arrays.toString(nums));
+        
+        for(int i=1;i<nums.length;i++){
+            nums[i] = nums[i] + nums[i-1];
+        }
+        //System.out.println("nums - "+ Arrays.toString(nums));
+        
+        int result = 0;
         for(int i=0;i<nums.length;i++){
             for(int j=i;j<nums.length;j++){
-                List<Integer> list = new ArrayList<>();
-                for(int k=i;k<=j;k++){
-                    list.add(nums[k]);
-                }
-                if(isValid(list, target)) count++;
+
+                int sum = 0;
+                if(i==0) sum = nums[j];
+                else sum = nums[j] - nums[i-1];
+
+                if(sum>0) result++;
             }
         }
-        return count;
-    }
-    private static boolean isValid(List<Integer> list, int target){
-        int freq = 0;
-        for(int i=0;i<list.size();i++){
-            if(list.get(i)==target){
-                freq++;
-            }
-        }
-        return freq>list.size()/2;
+        return result;
     }
 }

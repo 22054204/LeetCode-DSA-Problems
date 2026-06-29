@@ -10,6 +10,7 @@ class Solution {
         return ans;
     }
     // without using inbuild function
+    /*
     private int Method2(String[] patterns, String word) {
         int ans = 0;
         for(int i=0;i<patterns.length;i++){
@@ -27,4 +28,5 @@ class Solution {
         }
         return false;
     }
+    */
 }

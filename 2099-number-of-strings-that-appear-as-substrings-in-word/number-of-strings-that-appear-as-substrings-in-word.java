@@ -2,7 +2,7 @@ class Solution {
     public int numOfStrings(String[] patterns, String word) {
         return Method1(patterns, word);
     }
-    public int Method1(String[] patterns, String word) {
+    private int Method1(String[] patterns, String word) {
         int ans = 0;
         for(int i=0;i<patterns.length;i++){
             if(word.contains(patterns[i])) ans++;
@@ -10,7 +10,7 @@ class Solution {
         return ans;
     }
     // without using inbuild function
-    public int Method2(String[] patterns, String word) {
+    private int Method2(String[] patterns, String word) {
         int ans = 0;
         for(int i=0;i<patterns.length;i++){
             if(helper(patterns[i], word)) ans++;

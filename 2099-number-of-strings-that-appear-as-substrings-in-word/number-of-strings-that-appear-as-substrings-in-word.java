@@ -2,8 +2,18 @@ class Solution {
     public int numOfStrings(String[] patterns, String word) {
         int ans = 0;
         for(int i=0;i<patterns.length;i++){
-            if(word.contains(patterns[i])) ans++;
+            if(helper(patterns[i], word)) ans++;
         }
         return ans;
+    }
+    private boolean helper(String pat, String word) {
+        for (int i=0;i<=word.length()-pat.length();i++) {
+            int j = 0;
+            while (j<pat.length() && word.charAt(i+j)==pat.charAt(j)) {
+                j++;
+            }
+            if (j==pat.length()) return true;
+        }
+        return false;
     }
 }

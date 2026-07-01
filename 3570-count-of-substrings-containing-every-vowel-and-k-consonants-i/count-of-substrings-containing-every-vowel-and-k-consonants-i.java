@@ -7,7 +7,7 @@ class Solution {
         if(ch=='a' || ch=='e' || ch=='i' || ch=='o' || ch=='u')  return true;
         return false;
     }
-    public int Optimal(String s, int k) {
+    private int Optimal(String s, int k) {
         // in this solution i precompute cons indexes and store it in array
         int n = s.length();
         int[] nextCons = new int[n];
@@ -108,7 +108,7 @@ class Solution {
         }
         return ans;
     }
-    public int BruteForce(String s, int k) {
+    private int BruteForce(String s, int k) {
         int n = s.length();
         int ans = 0;
         for (int i = 0; i < n; i++) {

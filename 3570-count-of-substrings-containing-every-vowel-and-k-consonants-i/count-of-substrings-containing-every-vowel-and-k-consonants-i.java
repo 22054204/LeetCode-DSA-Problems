@@ -3,6 +3,60 @@ class Solution {
         return Optimal(s, k);
     }
     public int Optimal(String s, int k) {
+        // in this solution i precompute cons indexes and store it in array
+        int n = s.length();
+        int[] nextCons = new int[n];
+        int last = n;
+        for (int i = n-1;i>=0;i--) {
+            nextCons[i] = last;
+            if (!isVowel(s, i)) {
+                last = i;
+            }
+        }
+
+        int[] arr = {0,0,0,0,0,0}; //a e i o u cons 
+        int i=0;
+        int j=0;
+        int ans = 0;
+        while(j<n){
+            char ch = s.charAt(j);
+            if(ch=='a') arr[0]++;
+            else if(ch=='e') arr[1]++;
+            else if(ch=='i') arr[2]++;
+            else if(ch=='o') arr[3]++;
+            else if(ch=='u') arr[4]++;
+            else arr[5]++;
+
+            while (i<=j && arr[5] > k) {
+                char ch1 = s.charAt(i);
+                if(ch1=='a') arr[0]--;
+                else if(ch1=='e') arr[1]--;
+                else if(ch1=='i') arr[2]--;
+                else if(ch1=='o') arr[3]--;
+                else if(ch1=='u') arr[4]--;
+                else arr[5]--;
+                i++;   
+            }
+
+            while(i<=j && arr[0]>0 && arr[1]>0 && arr[2]>0 && arr[3]>0 && arr[4]>0 && arr[5]==k){
+                int idx = nextCons[j];
+                ans+=(idx-j);
+
+                char ch1 = s.charAt(i);
+                if (ch1 == 'a') arr[0]--;
+                else if (ch1 == 'e') arr[1]--;
+                else if (ch1 == 'i') arr[2]--;
+                else if (ch1 == 'o') arr[3]--;
+                else if (ch1 == 'u') arr[4]--;
+                else arr[5]--;    
+
+                i++;         
+            }
+            j++;
+        }
+        return ans;
+    }
+    public int Better(String s, int k) {
         int[] arr = {0,0,0,0,0,0}; //a e i o u cons 
         int i=0;
         int j=0;

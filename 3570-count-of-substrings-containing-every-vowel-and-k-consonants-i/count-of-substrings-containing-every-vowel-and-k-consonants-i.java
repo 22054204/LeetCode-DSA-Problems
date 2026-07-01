@@ -1,10 +1,59 @@
 class Solution {
     public int countOfSubstrings(String s, int k) {
-        return BruteForce(s, k);
+        return Optimal(s, k);
     }
-    // public int Optimal(String s, int k) {
+    public int Optimal(String s, int k) {
+        int[] arr = {0,0,0,0,0,0}; //a e i o u cons 
+        int i=0;
+        int j=0;
+        int n = s.length();
+        int ans = 0;
+        while(i<=j && j<n){
+            char ch = s.charAt(j);
+            if(ch=='a') arr[0]++;
+            else if(ch=='e') arr[1]++;
+            else if(ch=='i') arr[2]++;
+            else if(ch=='o') arr[3]++;
+            else if(ch=='u') arr[4]++;
+            else arr[5]++;
 
-    // }
+            while (arr[5] > k) {
+                char ch1 = s.charAt(i);
+                if(ch1=='a') arr[0]--;
+                else if(ch1=='e') arr[1]--;
+                else if(ch1=='i') arr[2]--;
+                else if(ch1=='o') arr[3]--;
+                else if(ch1=='u') arr[4]--;
+                else arr[5]--;
+                i++;   
+            }
+
+            while(arr[0]>0 && arr[1]>0 && arr[2]>0 && arr[3]>0 && arr[4]>0 && arr[5]==k){
+                int a = j;
+                while(a+1<n && isVowel(s, a+1)){
+                    a++;
+                }
+                ans+=(a-j+1);
+                char ch1 = s.charAt(i);
+
+                if (ch1 == 'a') arr[0]--;
+                else if (ch1 == 'e') arr[1]--;
+                else if (ch1 == 'i') arr[2]--;
+                else if (ch1 == 'o') arr[3]--;
+                else if (ch1 == 'u') arr[4]--;
+                else arr[5]--;    
+
+                i++;         
+            }
+            j++;
+        }
+        return ans;
+    }
+    private static boolean isVowel(String s, int j){
+        char ch = s.charAt(j);
+        if(ch=='a' || ch=='e' || ch=='i' || ch=='o' || ch=='u')  return true;
+        return false;
+    }
     public int BruteForce(String s, int k) {
         int n = s.length();
         int ans = 0;

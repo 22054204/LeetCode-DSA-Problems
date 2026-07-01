@@ -1,6 +1,6 @@
 class Solution {
     public int countOfSubstrings(String s, int k) {
-        return Optimal(s, k);
+        return Better(s, k);
     }
     private static boolean isVowel(String s, int j){
         char ch = s.charAt(j);

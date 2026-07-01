@@ -2,6 +2,11 @@ class Solution {
     public int countOfSubstrings(String s, int k) {
         return Optimal(s, k);
     }
+    private static boolean isVowel(String s, int j){
+        char ch = s.charAt(j);
+        if(ch=='a' || ch=='e' || ch=='i' || ch=='o' || ch=='u')  return true;
+        return false;
+    }
     public int Optimal(String s, int k) {
         // in this solution i precompute cons indexes and store it in array
         int n = s.length();
@@ -102,11 +107,6 @@ class Solution {
             j++;
         }
         return ans;
-    }
-    private static boolean isVowel(String s, int j){
-        char ch = s.charAt(j);
-        if(ch=='a' || ch=='e' || ch=='i' || ch=='o' || ch=='u')  return true;
-        return false;
     }
     public int BruteForce(String s, int k) {
         int n = s.length();

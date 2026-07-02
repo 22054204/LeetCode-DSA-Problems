@@ -5,14 +5,11 @@ class Solution {
     public static boolean Better(String s, String t){
         char[] arr1 = s.toCharArray();
         Arrays.sort(arr1);
-        s = sort(s);
-        
+    
         int length = s.length();
-        
-        for (int i = 0; i <= t.length() - length; i++) {
-            String x = t.substring(i, i + length);
-            x = sort(x);
-            if(x.equals(s)){
+        for (int i=0; i<=t.length()-length;i++) {
+            char[] arr2 = sort(t.substring(i, i+length)).toCharArray();
+            if(Arrays.equals(arr1, arr2)){
                 return true;
             }
         }
@@ -24,6 +21,8 @@ class Solution {
         s = new String(arr1);
         return s;
     }
+
+    
     public boolean BruteForce(String s, String t) {
         char[] arr = s.toCharArray();
         return generate(arr, t, 0);

@@ -2,7 +2,7 @@ class Solution {
     public int maxDigitRange(int[] nums) {
         int[] arr = new int[nums.length];
         findDiff(arr, nums);
-        System.out.println(Arrays.toString(arr));
+        //System.out.println(Arrays.toString(arr));
         int max = arr[0];
         for(int i=1;i<arr.length;i++){
             max = Math.max(max, arr[i]);

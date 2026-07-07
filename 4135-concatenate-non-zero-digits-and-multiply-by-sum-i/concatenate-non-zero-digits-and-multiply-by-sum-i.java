@@ -1,6 +1,6 @@
 class Solution {
     public long sumAndMultiply(int n) {
-        return Method3(n);
+        return Method1(n);
     }
     public long Method1(int n) {
         int rev = 0;

@@ -1,6 +1,6 @@
 class Solution {
     public long sumAndMultiply(int n) {
-        return Method1(n);
+        return Method3(n);
     }
     public long Method1(int n) {
         int rev = 0;
@@ -34,7 +34,29 @@ class Solution {
         long number = Long.parseLong(t);
         return number*sum;
     }
+    public long Method3(int n) {
+        List<Integer> list=new ArrayList<>();
+        while(n>0){
+            if(n%10!=0){
+                list.add(n%10);
+            }
+            n/=10;
+        }
+        long sum=0;
+        for(int i=0;i<list.size();i++){
+            sum+=list.get(i);
+        }
+        Collections.reverse(list);
+        long num = 0;
+        int i=0;
+        while(i<list.size()){
+            num = (num*10) + list.get(i);
+            i++;
+        }
+        return sum*num;
+    }
 }
+
 
 
 

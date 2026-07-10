@@ -3,12 +3,13 @@ class Solution {
         return Optimal(s);
     }
     public String Optimal(String s) {
-        String ans = "";
+        StringBuilder ans = new StringBuilder();
         int len = 0;
         for(int i=0;i<s.length();i++){
             for(int j=s.length()-1;j>=0;j--){
                 if(isPalindrome(s, i, j)){
-                    String temp = s.substring(i, j+1);
+                    StringBuilder temp = new StringBuilder();
+                    temp.append(s.substring(i, j+1));
                     if(temp.length() > len){
                         len = temp.length();
                         ans = temp;
@@ -17,7 +18,7 @@ class Solution {
                 }
             }
         }
-        return ans;
+        return ans.toString();
     }
     public String BruteForce(String s) {
         List<String> list = new ArrayList<>();

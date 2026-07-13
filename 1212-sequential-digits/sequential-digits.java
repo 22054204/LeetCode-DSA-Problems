@@ -15,13 +15,10 @@ class Solution {
     public List<Integer> Method1(int low, int high) {
         List<Integer> result = new ArrayList<>();
         
-        for(int i=low+1;i<high;i++){
+        for(int i=low;i<=high;i++){
             String s = String.valueOf(i);
             for(int j=0;j<s.length()-1;j++){
-                if(s.charAt(j)<s.charAt(j+1) && s.charAt(j)+1==s.charAt(j+1)){
-                    continue;
-                }
-                else if(s.charAt(j)>=s.charAt(j+1) && s.charAt(j)+1!=s.charAt(j+1)){
+                if(s.charAt(j)>=s.charAt(j+1)){
                     s = "";
                     break;
                 }

@@ -1,4 +1,3 @@
-import java.math.*;
 class Solution {
     public int findGCD(int[] nums) {
         int min = 1001;
@@ -12,12 +11,8 @@ class Solution {
         int result = gcd(min, max);
         return result;
     }
-    public static int gcd(int num1, int num2){
-        BigInteger b1 = BigInteger.valueOf(num1);
-        BigInteger b2 = BigInteger.valueOf(num2);
-
-        // Use built-in gcd method
-        int gcd = b1.gcd(b2).intValue();
-        return gcd;
+    public static int gcd(int a, int b){
+        if(b==0) return a;
+        return gcd(b, a%b);
     }
 }

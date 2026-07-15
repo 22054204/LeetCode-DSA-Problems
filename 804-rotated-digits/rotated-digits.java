@@ -2,8 +2,7 @@ class Solution {
     public int rotatedDigits(int n) {
         int ans = 0;
         for(int i=1;i<=n;i++){
-            if(i==2||i==5||i==6||i==9) ans++;
-            else ans += helper(i);
+            ans += helper(i);
         }
         return ans;
     }

@@ -1,23 +1,18 @@
 class Solution {
     public long gcdSum(int[] nums) {
         long[] prefixGcd = new long[nums.length];
-        long[] mxi = new long[nums.length];
-        mxi[0] = nums[0];
+        long curr_mxi = nums[0];
+        prefixGcd[0] = nums[0];
         for(int i=1;i<nums.length;i++){
-            mxi[i] = Math.max(nums[i], mxi[i-1]);
-        }
-        prefixGcd[0] = mxi[0];
-        for(int i=1;i<nums.length;i++){
-            prefixGcd[i] = gcd(nums[i], mxi[i]);
+            curr_mxi = Math.max(curr_mxi, nums[i]);
+            prefixGcd[i] = gcd(nums[i], curr_mxi);
         }
         Arrays.sort(prefixGcd);
         long sum = 0;
         int i=0;
         int j=prefixGcd.length-1;
         while(i<j){
-            sum+=gcd(prefixGcd[i], prefixGcd[j]);
-            i++;
-            j--;
+            sum+=gcd(prefixGcd[i++], prefixGcd[j--]);
         }
         return sum;
     }

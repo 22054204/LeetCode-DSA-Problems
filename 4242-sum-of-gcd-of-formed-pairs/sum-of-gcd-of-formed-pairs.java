@@ -3,9 +3,10 @@ class Solution {
         return Method3(nums);
     }
     private static int gcd(int a, int b){
-        while (b != 0) {
+        //return (b==0)?a:gcd(b,a%b);
+        while(b!=0){
             int temp = b;
-            b = a % b;
+            b = a%b;
             a = temp;
         }
         return a;

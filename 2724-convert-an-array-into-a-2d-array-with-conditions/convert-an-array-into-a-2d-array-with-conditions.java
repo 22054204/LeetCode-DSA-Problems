@@ -1,7 +1,8 @@
 class Solution {
     public List<List<Integer>> findMatrix(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
-        int[] freq = new int[nums.length+1];
+        int max = findMax(nums);
+        int[] freq = new int[max+1];
         for(int i=0;i<nums.length;i++){
             freq[nums[i]]++;
         }
@@ -19,5 +20,12 @@ class Solution {
             if(allZeros) break;
         }
         return result;
+    }
+    public static int findMax(int[] nums){
+        int max = 0;
+        for(int i=0;i<nums.length;i++){
+            max = Math.max(max, nums[i]);
+        }
+        return max;
     }
 }

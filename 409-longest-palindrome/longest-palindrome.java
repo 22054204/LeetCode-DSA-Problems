@@ -10,12 +10,15 @@ class Solution {
         int length = 0;
         boolean odd = false;
         for(int i=0;i<freq.length;i++){
-            if(freq[i]%2==0){
-                length+=freq[i];
-            }
-            else{
-                odd = true;
-                length+=freq[i]-1;
+            int num = freq[i];
+            if(num!=0){
+                if(num%2==0){
+                    length+=num;
+                }
+                else{
+                    odd = true;
+                    length+=num-1;
+                }
             }
         }
         if(odd) length++;

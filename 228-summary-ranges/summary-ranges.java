@@ -10,8 +10,9 @@ class Solution {
                 j++;
             }
             arr[1] = nums[j];
-            String s = (arr[0]==arr[1])? arr[0] + "" : arr[0] + "->" + arr[1];
-            list.add(s);
+            StringBuilder sb = new StringBuilder();
+            sb.append(arr[0] == arr[1] ? arr[0] : arr[0] + "->" + arr[1]);
+            list.add(sb.toString());
             i=j+1;
         }
         return list;

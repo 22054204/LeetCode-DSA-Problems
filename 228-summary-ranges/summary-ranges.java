@@ -1,6 +1,7 @@
 class Solution {
     public List<String> summaryRanges(int[] nums) {
         List<String> list = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
         int[] arr = {0,0};
         int i=0;
         while(i<nums.length){
@@ -10,9 +11,9 @@ class Solution {
                 j++;
             }
             arr[1] = nums[j];
-            StringBuilder sb = new StringBuilder();
             sb.append(arr[0] == arr[1] ? arr[0] : arr[0] + "->" + arr[1]);
             list.add(sb.toString());
+            sb.setLength(0);
             i=j+1;
         }
         return list;

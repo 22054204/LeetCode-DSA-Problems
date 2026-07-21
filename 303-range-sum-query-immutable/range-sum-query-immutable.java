@@ -1,12 +1,12 @@
 class NumArray {
-    int[] prefix;
+    int[] arr;
     public NumArray(int[] nums) {
-        prefix = nums.clone();
+        arr = nums.clone();
     }
     public int sumRange(int left, int right) {
         int sum = 0;
         for(int i=left;i<=right;i++){
-            sum+=prefix[i];
+            sum+=arr[i];
         }
         return sum;
     }

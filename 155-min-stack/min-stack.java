@@ -1,7 +1,9 @@
 class MinStack {
-    Stack<Integer> stack = new Stack<>();
-    Stack<Integer> minSt = new Stack<>();
+    Stack<Integer> stack;
+    Stack<Integer> minSt;
     public MinStack() {
+        stack = new Stack<>();
+        minSt = new Stack<>();
     }
     public void push(int value) {
         if(minSt.isEmpty() || minSt.peek()>=value){

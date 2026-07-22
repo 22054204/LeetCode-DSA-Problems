@@ -1,6 +1,6 @@
 class MinStack {
-    private Stack<Integer> stack;
-    private Stack<Integer> minSt;
+    Stack<Integer> stack;
+    Stack<Integer> minSt;
     public MinStack() {
         stack = new Stack<>();
         minSt = new Stack<>();

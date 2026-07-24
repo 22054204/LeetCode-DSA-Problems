@@ -1,39 +1,54 @@
-import java.util.*;
-
 class Solution {
     public int uniqueXorTriplets(int[] nums) {
-        boolean[] present = new boolean[1501];
         int maxVal = 0;
-        for (int x : nums) {
-            present[x] = true;
-            maxVal = Math.max(maxVal, x);
-        }
-
-        List<Integer> uniqueVals = new ArrayList<>();
-        for (int v = 1; v <= maxVal; v++) if (present[v]) uniqueVals.add(v);
-        int m = uniqueVals.size();
+        for (int x : nums) maxVal = Math.max(maxVal, x);
 
         int D = 1;
-        while (D <= maxVal) D <<= 1;
+        while (D <= maxVal) D <<= 1; // all XOR results stay < D
+
+        long[] f = new long[D];
+        for (int x : nums) f[x] = 1;      // presence indicator (dupes don't matter)
+
+        long[] Ff = f.clone();
+        fwht(Ff);
+
+        // ---- pairwise XOR-achievable set: conv(f, f) ----
+        long[] Fpair = new long[D];
+        for (int i = 0; i < D; i++) Fpair[i] = Ff[i] * Ff[i];
+        fwht(Fpair); // applying fwht again = inverse transform (up to scale D)
 
         boolean[] pairSet = new boolean[D];
-        for (int i = 0; i < m; i++) {
-            int ui = uniqueVals.get(i);
-            for (int j = i; j < m; j++) {
-                pairSet[ui ^ uniqueVals.get(j)] = true;
-            }
+        for (int i = 0; i < D; i++) {
+            if (Fpair[i] / D > 0) pairSet[i] = true;
         }
 
-        boolean[] tripleSet = new boolean[D];
-        for (int a = 0; a < D; a++) {
-            if (!pairSet[a]) continue;
-            for (int u : uniqueVals) {
-                tripleSet[a ^ u] = true;
-            }
-        }
+        // ---- triple-wise XOR-achievable set: conv(pairSet, f) ----
+        long[] Fp = new long[D];
+        for (int i = 0; i < D; i++) Fp[i] = pairSet[i] ? 1 : 0;
+        fwht(Fp);
+
+        long[] Ftriple = new long[D];
+        for (int i = 0; i < D; i++) Ftriple[i] = Fp[i] * Ff[i];
+        fwht(Ftriple);
 
         int count = 0;
-        for (boolean b : tripleSet) if (b) count++;
+        for (int i = 0; i < D; i++) {
+            if (Ftriple[i] / D > 0) count++;
+        }
         return count;
+    }
+
+    // In-place Walsh–Hadamard Transform (self-inverse up to a factor of n)
+    private void fwht(long[] a) {
+        int n = a.length;
+        for (int len = 1; len < n; len <<= 1) {
+            for (int i = 0; i < n; i += (len << 1)) {
+                for (int j = i; j < i + len; j++) {
+                    long u = a[j], v = a[j + len];
+                    a[j] = u + v;
+                    a[j + len] = u - v;
+                }
+            }
+        }
     }
 }

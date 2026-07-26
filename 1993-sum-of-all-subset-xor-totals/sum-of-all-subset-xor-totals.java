@@ -2,7 +2,7 @@ class Solution {
     public int subsetXORSum(int[] nums) {
         if(nums.length==0) return 0;
         List<List<Integer>> result = subsets(nums);
-        System.out.println(result);
+        //System.out.println(result);
         return xor(result);
     }
     private static int xor(List<List<Integer>> result){

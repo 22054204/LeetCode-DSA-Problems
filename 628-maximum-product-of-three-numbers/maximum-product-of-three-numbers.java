@@ -25,6 +25,6 @@ class Solution {
         }
         int max1 = max*secMax*thirdMax;
         int max2 = min*secMin*max;
-        return (max1 > max2) ? max1 : max2;
+        return (max1>max2)?max1:max2;
     }
 }

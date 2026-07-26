@@ -23,6 +23,8 @@ class Solution {
                 secMin = nums[i];
             }
         }
-        return Math.max(max*secMax*thirdMax, min*secMin*max);
+        int max1 = max*secMax*thirdMax;
+        int max2 = min*secMin*max;
+        return (max1 > max2) ? max1 : max2;
     }
 }

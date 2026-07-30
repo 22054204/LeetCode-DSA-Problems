@@ -1,6 +1,7 @@
 class Solution {
     public int minimumPushes(String word) {
-        int[] freq = new int[26];
+        int max = max(word);
+        int[] freq = new int[max+1];
         for(int i=0;i<word.length();i++){
             freq[word.charAt(i)-'a']++;
         }
@@ -14,6 +15,13 @@ class Solution {
             else count+=freq[i]*4;
         }
         return count;
+    }
+    private static int max(String word){
+        int max = 0;
+        for(int i=0;i<word.length();i++){
+            max = Math.max(word.charAt(i)-'a', max);
+        }
+        return max;
     }
     private static int[] reverse(int[] nums){
         int i=0,j=nums.length-1;

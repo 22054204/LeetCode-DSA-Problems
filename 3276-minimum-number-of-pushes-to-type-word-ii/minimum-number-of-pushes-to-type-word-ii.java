@@ -8,10 +8,7 @@ class Solution {
         freq = reverse(freq);
         int count = 0;
         for(int i=0;i<freq.length;i++){
-            if(i>=0 && i<=7) count+=freq[i]*1;
-            else if(i>=8 && i<=15) count+=freq[i]*2;
-            else if(i>=16 && i<=23) count+=freq[i]*3;
-            else count+=freq[i]*4;
+            count+=freq[i]*((i>=0 && i<=7)?1:(i>=8 && i<=15)?2:(i>=16 && i<=23)?3:4);
         }
         return count;
     }

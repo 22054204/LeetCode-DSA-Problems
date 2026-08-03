@@ -6,6 +6,14 @@ class KthLargest {
         for(int i=0;i<nums.length;i++){
             add(nums[i]);
         }
+        /* or we can do 
+            for(int i=0;i<nums.length;i++){
+                minHeap.offer(nums[i]);
+                if(minHeap.size()>k){
+                    minHeap.poll();
+                }
+            }
+        */
     }
     
     public int add(int val) {

@@ -13,7 +13,7 @@ class Solution {
             int z =  y-x;
             if(z!=0) maxHeap.offer(z);
         }
-        return maxHeap.isEmpty() ? 0 : maxHeap.poll();
+        return maxHeap.isEmpty()?0:maxHeap.poll();
     }
     public int WithoutUsingHeapDataStructures(int[] stones) {
         if(stones.length==1) return stones[0];
@@ -25,7 +25,7 @@ class Solution {
         while(list.size()>1){
             int y = list.remove(list.size()-1);
             int x = list.remove(list.size()-1);
-            int z = Math.abs(y-x);
+            int z = y-x;
             if(z!=0) list.add(z);
             Collections.sort(list);
         }

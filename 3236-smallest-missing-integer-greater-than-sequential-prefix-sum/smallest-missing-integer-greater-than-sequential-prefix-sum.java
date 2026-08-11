@@ -12,8 +12,13 @@ class Solution {
         for(int num:nums){
             set.add(num);
         }
-        while(set.contains(sum)){
-            sum++;
+        boolean isPresent = true;
+        while(isPresent){
+            isPresent = false;
+            if(set.contains(sum)){
+                sum++;
+                isPresent = true;
+            }
         }
         return sum;
     }

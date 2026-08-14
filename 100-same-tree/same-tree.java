@@ -15,22 +15,12 @@
  */
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        List<Integer> list1 = new ArrayList<>();
-        List<Integer> list2 = new ArrayList<>();
-
-        treeToListInOrder(p, list1);
-        treeToListInOrder(q, list2);
-
-        return list1.equals(list2);
+        return check(p, q);
     }
-
-    public void treeToListInOrder(TreeNode node, List<Integer> list) {
-        if (node == null) {
-            list.add((int)-10e4+1);
-            return;
-        }
-        list.add(node.val);
-        treeToListInOrder(node.left, list);
-        treeToListInOrder(node.right, list);
+    public boolean check(TreeNode p, TreeNode q){
+        if(p==null&&q==null) return true;
+        if(p==null||q==null) return false;
+        if(p.val!=q.val) return false;
+        return check(p.left, q.left) && check(p.right, q.right);
     }
 }

@@ -16,8 +16,8 @@
 class Solution {
     public boolean isSymmetric(TreeNode root) {
         //return bfs(root);
-        //return recursiveDFS(root, root);
-        return iterativeDFS(root);
+        // return iterativeDFS(root);
+        return recursiveDFS(root, root);
     }
     private boolean iterativeDFS(TreeNode root) {
         if(root==null) return true;

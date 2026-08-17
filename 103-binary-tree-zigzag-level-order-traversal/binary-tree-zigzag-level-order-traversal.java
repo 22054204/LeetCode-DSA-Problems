@@ -16,39 +16,28 @@
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
-        if(root == null) return result;
-        if(root.left == null && root.right == null){
-            result.add(Arrays.asList(root.val));
-            return result;
-        }
-        else{
-            Queue<TreeNode> q = new LinkedList<>();
-            q.add(root);
-            while(!q.isEmpty()){
-                int count = 0;
-                int size = q.size();
-                List<Integer> list = new ArrayList<>();
-                for(int i=0;i<size;i++){
-                    TreeNode node = q.remove();
-                    list.add(node.val);
-                    if(node.left != null){
-                        q.add(node.left);
-                    }
-                    if(node.right != null){
-                        q.add(node.right);
-                    }
+        if(root==null) return result;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while(!q.isEmpty()){
+            List<Integer> list = new ArrayList<>();
+            int size = q.size();
+            for(int i=0;i<size;i++){
+                TreeNode node = q.poll();
+                list.add(node.val);
+                if(node.left!=null){
+                    q.offer(node.left);
+                }if(node.right!=null){
+                    q.offer(node.right);
                 }
-                result.add(list);
             }
+            result.add(list);
         }
         for(int i=0;i<result.size();i++){
             if(i%2==1){
-                helper(result.get(i));
+                Collections.reverse(result.get(i));
             }
         }
         return result;
-    }
-    public static void helper(List<Integer> list){
-        Collections.reverse(list);
     }
 }

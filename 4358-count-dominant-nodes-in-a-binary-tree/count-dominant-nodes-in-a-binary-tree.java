@@ -16,17 +16,26 @@
 class Solution {
     int count = 0;
     public int countDominantNodes(TreeNode root) {
-        dfs(root);
+        helper(root);
         return count;
     }
-    private int dfs(TreeNode root){
+    public int helper(TreeNode root){
         if(root==null) return 0;
-
-        int leftMax = dfs(root.left);
-        int rightMax = dfs(root.right);
-        
-        int currMax = Math.max(root.val, Math.max(leftMax, rightMax));
-        if(currMax==root.val) count++;
-        return currMax;
+        if(isLeaf(root)){
+            count++;
+            return root.val;
+        }
+        int leftMax =  helper(root.left);
+        int rightMax = helper(root.right);
+        int maxDesc = Math.max(leftMax, rightMax);
+        if(root.val >= maxDesc) {
+            count++;
+        }
+        return Math.max(root.val, maxDesc);
     }
+    public static boolean isLeaf(TreeNode root){
+        if(root.left==null && root.right==null) return true;
+        return false;
+    }
+
 }

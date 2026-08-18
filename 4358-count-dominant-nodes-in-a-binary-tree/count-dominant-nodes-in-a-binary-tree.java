@@ -14,30 +14,19 @@
  * }
  */
 class Solution {
-
+    int count = 0;
     public int countDominantNodes(TreeNode root) {
-        return helper(root, 0);
-    }
-
-    public static int helper(TreeNode root, int count) {
-        if(root==null) return count;
-
-        int max = getMax(root);
-
-        if(root.val==max) count++;
-
-        count = helper(root.left, count);
-        count = helper(root.right, count);
-
+        dfs(root);
         return count;
     }
-
-    public static int getMax(TreeNode root) {
+    private int dfs(TreeNode root){
         if(root==null) return 0;
 
-        int left = getMax(root.left);
-        int right = getMax(root.right);
-
-        return Math.max(root.val, Math.max(left, right));
+        int leftMax = dfs(root.left);
+        int rightMax = dfs(root.right);
+        
+        int currMax = Math.max(root.val, Math.max(leftMax, rightMax));
+        if(currMax==root.val) count++;
+        return currMax;
     }
 }

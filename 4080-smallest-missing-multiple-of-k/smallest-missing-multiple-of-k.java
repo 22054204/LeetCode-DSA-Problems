@@ -6,12 +6,11 @@ class Solution {
                 set.add(nums[i]);
             }
         }
-        int j=0;
-        for(;j<set.size();j++){
+        for(int j=0;j<=set.size();j++){
             if(!set.contains(k*(j+1))){
                 return k*(j+1);
             }
         }
-        return k*(j+1);
+        return 0;
     }
 }

@@ -1,26 +1,19 @@
 class Solution {
     public int missingMultiple(int[] nums, int k) {
-        int[] arr = new int[102];
-        for(int i=0;i<=101;i++){
-            arr[i] = k*i;
-        }
-        Arrays.sort(nums);
-        int i=0,j=1;
-        while(i<nums.length){
-            if(i!=0 && nums[i]==nums[i-1]){
-                i++;
-            }
-            else if(nums[i]%k!=0){
-                i++;
-            }else if(nums[i]%k==0){
-                if(nums[i]==arr[j]){
-                    i++;
-                    j++;
-                }else{
-                    return arr[j];
-                }
+        TreeSet<Integer> set = new TreeSet<>();
+        int i=0;
+        for(;i<nums.length;i++){
+            if(nums[i]%k==0){
+                set.add(nums[i]);
             }
         }
-        return arr[j];
+        i=0;
+        for(int num:set){
+            if(!set.contains(k*(i+1))){
+                return k*(i+1);
+            }
+            i++;
+        }
+        return k*(i+1);
     }
 }

@@ -1,32 +1,38 @@
 class Solution {
     public String shortestBeautifulSubstring(String s, int k) {
+
         String result = "";
-        int i=0;
-        while(i<s.length()){
-            if(s.charAt(i)!='1') i++;
-            else break;
-        }
-        if(i==s.length()) return "";
-        while(i<s.length()){
-            String temp = "";
-            int j=i;
-            int count = 0;
-            while(count!=k && j<s.length()){
-                if(s.charAt(j)=='1') count++;
-                j++;
+
+        int left = 0;
+        int count = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+
+            if (s.charAt(right) == '1') {
+                count++;
             }
-            if (count != k) break;
-            temp += s.substring(i,j);
-            if (result.equals("") || temp.length() < result.length()) {
-                result = temp;
-            }
-            else if (temp.length() == result.length() && temp.compareTo(result) < 0) {
-                result = temp;
-            }
-            i++;
-            while(i<s.length()){
-                if(s.charAt(i)!='1') i++;
-                else break;
+
+            // We have exactly k ones
+            if (count == k) {
+
+                // Remove unnecessary 0s from the left
+                while (s.charAt(left) == '0') {
+                    left++;
+                }
+
+                // Current window
+                String temp = s.substring(left, right + 1);
+
+                // Compare with answer
+                if (result.equals("") || temp.length() < result.length()) {
+                    result = temp;
+                }else if (temp.length() == result.length() && temp.compareTo(result) < 0){
+                    result = temp;
+                }
+
+                // Move left past the first 1
+                left++;
+                count--;
             }
         }
         return result;

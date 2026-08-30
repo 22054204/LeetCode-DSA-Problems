@@ -35,9 +35,6 @@ class Solution {
         if(b==n-maxIdx) rightSideForMax = true;
         else leftSideForMax = true;
 
-        System.out.println(min + " " + max);
-        System.out.println(a + " " + b);
-
         int c = 0;
         if((leftSideForMin && rightSideForMax) || (leftSideForMax && rightSideForMin)){
             c=a+b;
@@ -61,7 +58,7 @@ class Solution {
         minOccur = false;
         maxOccur = false;
 
-        i=nums.length-1;
+        i=n-1;
         int rightLen = 1;
         while(minOccur==false || maxOccur==false){
             if(nums[i]==min) minOccur = true;
@@ -70,10 +67,7 @@ class Solution {
             else rightLen++;
             i--;
         }
-
-        System.out.println(leftLen + " " + rightLen);
         int len = Math.min(leftLen, rightLen);
-
         return Math.min(len, c);
     }
 }

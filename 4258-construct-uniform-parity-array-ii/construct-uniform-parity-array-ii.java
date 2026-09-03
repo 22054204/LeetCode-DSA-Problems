@@ -21,19 +21,17 @@ class Solution {
         }
         if(allOdd) return true; // true because in array nums2 All Odd
         
-        Arrays.sort(nums1);
         int i=0;
-        int j=0;
-        while(j<n){
-            if(nums1[j]%2==0) j++;
-            else break;
+        int min = nums1[0];
+        for(int num:nums1){
+            min = Math.min(num, min);
         }
         while(i<n){
             if(nums1[i]%2!=0){
                 nums2[i] = nums1[i];
             }else{
-                if(nums1[i]-nums1[j]>=1){
-                    nums2[i] = nums1[i]-nums1[j];
+                if(nums1[i]-min>=1){
+                    nums2[i] = nums1[i]-min;
                 }else{
                     return false;
                 }

@@ -22,9 +22,11 @@ class Solution {
         if(allOdd) return true; // true because in array nums2 All Odd
         
         int i=0;
-        int min = nums1[0];
+        int min = Integer.MAX_VALUE; // min = smallest odd possible in array.
         for(int num:nums1){
-            min = Math.min(num, min);
+            if(num%2!=0){ 
+                min = Math.min(num, min);
+            }
         }
         while(i<n){
             if(nums1[i]%2!=0){

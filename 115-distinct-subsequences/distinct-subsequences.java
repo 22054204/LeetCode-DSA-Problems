@@ -7,17 +7,14 @@ class Solution {
         n = t.length();
 
         dp = new int[m+1][n+1];
-
-        for (int[] row : dp) {
-            Arrays.fill(row, -1);
-        }
+        
         return solve(s, t);
     }
     public int solve(String s, String t){
         //base case 
 
         dp[m][n] = 1;
-        
+
         // if(j==n) return 1;
         for(int j=0;j<m;j++){
             dp[j][n] = 1; 

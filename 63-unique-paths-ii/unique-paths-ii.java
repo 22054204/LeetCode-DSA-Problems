@@ -1,16 +1,22 @@
 class Solution {
-    int[][] dp = new int[101][101];
+    int m = 0;
+    int n = 0;
+    int[][] dp;
     public int uniquePathsWithObstacles(int[][] mat) {
+        m = mat.length;
+        n = mat[0].length;
+        if(mat[m-1][n-1]==1) return 0; 
+        dp = new int[m][n];
         for(int[] row:dp){
             Arrays.fill(row, -1);
         }
         return solve(mat, 0, 0);
     }
     private int solve(int[][] mat, int i, int j){
-        if(i==mat.length-1 && j==mat[0].length){
+        if(i==m-1 && j==n-1){
             return 1;
         }
-        if(i>=mat.length || j>=mat[0].length){
+        if(i>=m || j>=n){
             return 0;
         }
         if(mat[i][j]==1) return 0;

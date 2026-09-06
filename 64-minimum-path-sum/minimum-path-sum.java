@@ -5,7 +5,7 @@ class Solution {
     public int minPathSum(int[][] grid) {
         m = grid.length;
         n = grid[0].length;
-        dp = new int[m][n];
+        dp = new int[m+1][n+1];
         for(int[] row:dp){
             Arrays.fill(row, -1);
         }

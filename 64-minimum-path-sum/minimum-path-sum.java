@@ -1,10 +1,11 @@
 class Solution {
-    int[][] dp = new int[201][201];
+    int[][] dp;
     int m = 0;
     int n = 0;
     public int minPathSum(int[][] grid) {
         m = grid.length;
         n = grid[0].length;
+        dp = new int[m][n];
         for(int[] row:dp){
             Arrays.fill(row, -1);
         }

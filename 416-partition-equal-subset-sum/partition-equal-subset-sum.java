@@ -1,8 +1,9 @@
 class Solution {
-    int n = 0;
+    int n=0;
     Boolean[][] dp;
+    int target=0;
     public int sum(int[] nums){
-        int sum = 0;
+        int sum=0;
         for(int num:nums){
             sum+=num;
         }
@@ -14,11 +15,11 @@ class Solution {
         if(sum%2!=0){ // if sum is odd, then we did not make sum1 and sum2 equal in any way.
             return false;
         }
-        int target = sum/2;
+        target = sum/2;
         dp = new Boolean[n+1][target+1];
-        return solve(nums, 0, 0, target);
+        return solve(nums, 0, 0);
     }
-    public boolean solve(int[] nums, int i, int sum1, int target){
+    public boolean solve(int[] nums, int i, int sum1){
         if(sum1==target){
             return true;
         }
@@ -26,8 +27,8 @@ class Solution {
             return false;
         }
         if(dp[i][sum1]!=null) return dp[i][sum1];
-        boolean take = solve(nums, i+1, sum1+nums[i], target);
-        boolean skip = solve(nums, i+1, sum1, target);
+        boolean take = solve(nums, i+1, sum1+nums[i]);
+        boolean skip = solve(nums, i+1, sum1);
         return dp[i][sum1] = (take || skip);
     }
 }

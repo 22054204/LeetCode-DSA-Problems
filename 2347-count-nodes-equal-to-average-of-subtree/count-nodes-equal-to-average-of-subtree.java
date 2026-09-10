@@ -15,21 +15,23 @@
  */
 class Solution {
     int ans = 0;
+    int count = 0;
     public int averageOfSubtree(TreeNode root) {
         helper(root);
         return ans;
     }
     public void helper(TreeNode root){
         if(root==null) return;
-        int[] count = {0};
-        int avg = solve(root, count)/count[0];
+        count = 0;
+        int sum = solve(root);
+        int avg = sum/count;
         if(avg==root.val) ans++;
         helper(root.left);
         helper(root.right);
     }
-    public int solve(TreeNode root, int[] count){
+    public int solve(TreeNode root){
         if(root==null) return 0;
-        count[0]++;
-        return root.val + solve(root.left, count) + solve(root.right, count);  
+        count++;
+        return root.val + solve(root.left) + solve(root.right);  
     }
 }

@@ -1,9 +1,12 @@
 class Solution {
     Map<Integer, Integer> map = new HashMap<>();
     int n = 0;
-    Boolean[][] dp = new Boolean[2001][2001];
+    Boolean[][] dp;
     public boolean canCross(int[] stones) {
         n = stones.length;
+
+        dp = new Boolean[n+1][n+1];
+
         if(stones[1]!=1) return false;
         if(n==2) return true;
         int i=0;

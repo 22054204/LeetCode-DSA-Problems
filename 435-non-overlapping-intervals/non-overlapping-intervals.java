@@ -1,12 +1,6 @@
 class Solution {
     public int eraseOverlapIntervals(int[][] intervals) {
-       Arrays.sort(intervals, (a, b) -> {
-            for(int i = 0; i < a.length; i++) {
-                if(a[i] != b[i]) return Integer.compare(a[i], b[i]);
-            }
-            return 0;
-        });
-       //System.out.println(Arrays.deepToString(intervals));
+       Arrays.sort(intervals, Comparator.comparingInt(a->a[0]));
 
        int count = 0;
        int st1 = intervals[0][0];

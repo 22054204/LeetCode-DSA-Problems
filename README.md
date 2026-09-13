@@ -59,8 +59,10 @@ The repository currently contains solutions from topics including:
 * Recursion
 * Mathematics
 * Sorting
+* Trees
+* Dynamic Programming
 
-I am currently learning **Trees**, and this repository will continue to grow as I explore more advanced topics such as Dynamic Programming and Graphs.
+I am currently learning **Graphs**, and this repository will continue to grow as I explore more advanced topics and problem-solving patterns.
 
 ---
 

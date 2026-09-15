@@ -1,17 +1,14 @@
 class Solution {
     int size;
     int[][] dp;
-    int[][] palindrome;
+    Boolean[][] palindrome;
     public int maxPalindromes(String s, int k) {
         size = s.length();
         dp = new int[size][size];
         for(int[] row:dp){
             Arrays.fill(row, -1);
         }
-        palindrome = new int[size][size];
-        for(int[]row:palindrome){
-            Arrays.fill(row, -1);
-        }
+        palindrome = new Boolean[size][size];
         return solve(s, k, 0, 0);
     }
     public int solve(String s, int k, int i, int j){
@@ -31,14 +28,14 @@ class Solution {
     }
     public boolean isPalindrome(String s, int i, int j){
         if(i>=j) return true;
-        if(palindrome[i][j]!=-1){
-            return palindrome[i][j]==1;
+        if(palindrome[i][j]!=null){
+            return palindrome[i][j];
         }
         if(s.charAt(i)!=s.charAt(j)){
-            palindrome[i][j] = 0;
+            palindrome[i][j] = false;
             return false;
         }
-        palindrome[i][j] = isPalindrome(s, i+1, j-1)?1:0;
-        return palindrome[i][j]==1;
+        palindrome[i][j] = isPalindrome(s, i+1, j-1)?true:false;
+        return palindrome[i][j];
     }
 }

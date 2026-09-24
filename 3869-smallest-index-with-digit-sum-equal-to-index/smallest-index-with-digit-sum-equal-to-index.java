@@ -1,13 +1,7 @@
 class Solution {
     public int smallestIndex(int[] nums) {
-        int[] arr = new int[1001];
         for(int i=0;i<nums.length;i++){
-            int digitSum = digitSum(nums[i]);
-            arr[nums[i]] = digitSum;
-        }
-
-        for(int i=0;i<nums.length;i++){
-            if(i==arr[nums[i]]){
+            if(i==digitSum(nums[i])){
                 return i;
             }
         }

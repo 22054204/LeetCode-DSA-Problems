@@ -1,18 +1,16 @@
 class Solution {
     public int smallestIndex(int[] nums) {
         for(int i=0;i<nums.length;i++){
-            if(i==digitSum(nums[i])){
+            int sum = 0;
+            int num = nums[i];
+            while(num>0){
+                sum+=num%10;
+                num/=10;
+            }
+            if(i==sum){
                 return i;
             }
         }
         return -1;
-    }
-    public int digitSum(int num){
-        int sum = 0;
-        while(num>0){
-            sum+=num%10;
-            num/=10;
-        }
-        return sum;
     }
 }

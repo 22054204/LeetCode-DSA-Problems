@@ -4,7 +4,6 @@ class Solution {
         for(int i=0;i<knowledge.size();i++){
             map.put(knowledge.get(i).get(0), knowledge.get(i).get(1));
         }
-        System.out.println(map);
         StringBuilder sb = new StringBuilder();
         int i=0;
         while(i<s.length()){
@@ -22,7 +21,6 @@ class Solution {
                     //     sb.append('?');
                     // }
                 i=j+1;
-                System.out.println(search);
             }
             else{
                 sb.append(s.charAt(i));

@@ -3,8 +3,9 @@ class Solution {
         boolean[] seen = new boolean[26];
         int count = 0;
         for(int i=0;i<s.length();i++){
-            if(!seen[s.charAt(i)-'a']){
-                seen[s.charAt(i)-'a'] = true;
+            int idx = s.charAt(i)-'a';
+            if(!seen[idx]){
+                seen[idx] = true;
                 count++;
             }
         }

@@ -6,11 +6,7 @@ class Solution {
             if(seq.charAt(i)=='('){
                 cnt++;
             }
-            if(cnt%2==0){
-                result[i]=0;
-            }else{
-                result[i]=1;
-            }
+            result[i] = cnt%2;
             if(seq.charAt(i)==')'){
                 cnt--;
             }

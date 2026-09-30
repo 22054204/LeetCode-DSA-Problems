@@ -1,8 +1,9 @@
 class Solution {
     public int[] maxDepthAfterSplit(String seq) {
-        int[] result = new int[seq.length()];
+        int n = seq.length();
+        int[] result = new int[n];
         int cnt = 0;
-        for(int i=0;i<seq.length();i++){
+        for(int i=0;i<n;i++){
             if(seq.charAt(i)=='('){
                 cnt++;
             }

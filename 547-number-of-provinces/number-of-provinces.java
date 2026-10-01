@@ -1,11 +1,11 @@
 class Solution {
     boolean[] visited;
     public int findCircleNum(int[][] isConnected) {
-        Map<Integer, List<Integer>> graph = new HashMap<>();
+        List<List<Integer>> graph = new ArrayList<>();
         int n = isConnected.length;
         visited = new boolean[n];
         for(int i=0;i<n;i++){
-            graph.put(i, new ArrayList<>());
+            graph.add(i, new ArrayList<>());
         }
 
         for(int i=0;i<n;i++){
@@ -24,7 +24,7 @@ class Solution {
         }
         return count;
     }
-    public void solve(Map<Integer, List<Integer>> graph, int u){
+    public void solve(List<List<Integer>> graph, int u){
         visited[u] = true;
         for(int v:graph.get(u)){
             if(!visited[v]) solve(graph, v);

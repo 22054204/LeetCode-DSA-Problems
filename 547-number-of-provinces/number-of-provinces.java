@@ -1,5 +1,6 @@
 class Solution {
     boolean[] visited;
+    Queue<Integer> queue = new LinkedList<>();
     public int findCircleNum(int[][] isConnected) {
         List<List<Integer>> graph = new ArrayList<>();
         int n = isConnected.length;
@@ -15,6 +16,7 @@ class Solution {
                 }
             }
         }
+        
         int count = 0;
         for(int i=0;i<n;i++){
             if(!visited[i]){
@@ -24,10 +26,17 @@ class Solution {
         }
         return count;
     }
-    public void solve(List<List<Integer>> graph, int u){
-        visited[u] = true;
-        for(int v:graph.get(u)){
-            if(!visited[v]) solve(graph, v);
+    public void solve(List<List<Integer>> graph, int k){
+        visited[k] = true;
+        queue.offer(k);
+        while(!queue.isEmpty()){
+            int u = queue.poll();
+            for(int v:graph.get(u)){
+                if(!visited[v]){
+                    visited[v] = true;
+                    queue.offer(v);
+                }
+            }
         }
     }
 }

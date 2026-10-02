@@ -1,44 +1,45 @@
 class Solution {
-    int[] indegree;
     ArrayList<Integer> result = new ArrayList<>();
-    Queue<Integer> queue = new LinkedList<>();
+    boolean[] visited;
+    boolean[] inRecursion;
+    Stack<Integer> stack = new Stack<>();
     public int[] findOrder(int V, int[][] edges) {
-        HashMap<Integer, List<Integer>> map = new HashMap<>();
+        Map<Integer, List<Integer>> graph = new HashMap<>();
         for(int i=0;i<V;i++){
-            map.put(i, new ArrayList<>());
+            graph.put(i, new ArrayList<>());
         }
-        
-        indegree = new int[V];
-        
+        visited = new boolean[V];
+        inRecursion = new boolean[V];
         for(int i=0;i<edges.length;i++){
-            int u = edges[i][0];
-            int v = edges[i][1];
-            
-            map.get(u).add(v);
-            indegree[v]++;
+            int u = edges[i][1];
+            int v = edges[i][0];
+            graph.get(u).add(v);
         }
-        
         for(int i=0;i<V;i++){
-            if(indegree[i]==0){
-                queue.offer(i);
+            if(!visited[i]){
+                if(!solve(graph, i)) return new int[]{};
             }
         }
-        while(!queue.isEmpty()){
-            solve(map);
+        while(!stack.isEmpty()){
+            result.add(stack.pop());
         }
-        if(result.size()!=V) return new int[]{};
         int[] res = new int[result.size()];
         for(int i=0;i<res.length;i++){
-            res[i] = result.get(res.length-1-i);
+            res[i] = result.get(i);
         }
         return res;
     }
-    public void solve(HashMap<Integer, List<Integer>> graph){
-        int u = queue.poll();
-        result.add(u);
+    public boolean solve(Map<Integer, List<Integer>> graph, int u){
+        visited[u] = true;
+        inRecursion[u] = true;
         for(int v:graph.get(u)){
-            indegree[v]--;
-            if(indegree[v]==0) queue.offer(v);
+            if(inRecursion[v]) return false;
+            if(!visited[v]){
+                if(!solve(graph, v)) return false;
+            }
         }
+        inRecursion[u] = false;
+        stack.push(u);
+        return true;
     }
 }

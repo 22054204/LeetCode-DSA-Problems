@@ -1,40 +1,37 @@
 class Solution {
-    int[] indegree;
-    ArrayList<Integer> result = new ArrayList<>();
-    Queue<Integer> queue = new LinkedList<>();
+    boolean[] visited;
+    boolean[] inRecursion;
     public boolean canFinish(int V, int[][] edges) {
-        HashMap<Integer, List<Integer>> map = new HashMap<>();
+        visited = new boolean[V];
+        inRecursion = new boolean[V];
+        Map<Integer, List<Integer>> graph = new HashMap<>();
         for(int i=0;i<V;i++){
-            map.put(i, new ArrayList<>());
+            graph.put(i, new ArrayList<>());
         }
-
-        indegree = new int[V];
-
         for(int i=0;i<edges.length;i++){
             int u = edges[i][0];
             int v = edges[i][1];
-            
-            map.get(u).add(v);
-            indegree[v]++;
+            graph.get(u).add(v);
+            //graph.get(v).add(u);
         }
 
         for(int i=0;i<V;i++){
-            if(indegree[i]==0){
-                queue.offer(i);
+            if(!visited[i]){
+                if(solve(graph, i)) return false;
             }
         }
-
-        while(!queue.isEmpty()){
-            solve(map);
-        }
-        return result.size()==V;
+        return true;
     }
-    public void solve(HashMap<Integer, List<Integer>> graph){
-        int u = queue.poll();
-        result.add(u);
-        for(int v:graph.get(u)){
-            indegree[v]--;
-            if(indegree[v]==0) queue.offer(v);
+    public boolean solve(Map<Integer, List<Integer>> graph, int u){
+        visited[u] = true;
+        inRecursion[u] = true;
+        for(int v : graph.get(u)){
+            if(visited[v] && inRecursion[v]) return true;
+            if(!visited[v]){
+                if(solve(graph, v)) return true;
+            }
         }
+        inRecursion[u] = false;
+        return false;
     }
 }

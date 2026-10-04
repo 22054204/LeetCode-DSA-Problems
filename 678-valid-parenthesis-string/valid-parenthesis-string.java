@@ -1,7 +1,8 @@
 class Solution {
     Boolean[][][] dp;
     public boolean checkValidString(String s) {
-        dp = new Boolean[101][101][101];
+        int n = s.length();
+        dp = new Boolean[n+1][n+1][n];
         if(solve(s, 0, 0, 0)) return true;
         return false;
     }

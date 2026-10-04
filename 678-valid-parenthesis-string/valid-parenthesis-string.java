@@ -1,16 +1,16 @@
 class Solution {
     Boolean[][] dp;
+    int n;
     public boolean checkValidString(String s) {
-        int n = s.length();
+        n = s.length();
         dp = new Boolean[n+1][n];
-        if(solve(s, 0, 0)) return true;
-        return false;
+        return solve(s, 0, 0);
     }
     public boolean solve(String s, int count, int i){
         if(count<0){
             return false;
         }
-        if(i==s.length()){
+        if(i==n){
             return count==0;
         }
         if(dp[count][i]!=null) return dp[count][i];

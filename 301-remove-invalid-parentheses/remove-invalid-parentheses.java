@@ -22,7 +22,9 @@ class Solution {
 
     public void solve(String s, StringBuilder sb, int i){
         if(i==s.length()){
-            set.add(sb.toString());
+            if(isValid(sb.toString())){
+                set.add(sb.toString());
+            }
             return;
         }
 

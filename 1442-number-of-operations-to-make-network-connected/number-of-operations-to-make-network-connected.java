@@ -1,5 +1,6 @@
 class Solution {
     boolean[] visited;
+    Queue<Integer> queue = new LinkedList<>();
     public int makeConnected(int n, int[][] connections) {
         if(n-1>connections.length) return -1;
         visited = new boolean[n];
@@ -23,11 +24,17 @@ class Solution {
         }
         return n-count-1;
     }
-    public void solve(Map<Integer, List<Integer>> graph, int u){
-        visited[u] = true;
-        for(int v:graph.get(u)){
-            if(visited[v]) continue;
-            if(!visited[v]) solve(graph, v);
+    public void solve(Map<Integer, List<Integer>> graph, int k){
+        visited[k] = true;
+        queue.offer(k);
+        while(!queue.isEmpty()){
+            int u = queue.poll();
+            for(int v:graph.get(u)){
+                if(!visited[v]){
+                    visited[v] = true;
+                    queue.offer(v);
+                }
+            }
         }
     }
 }

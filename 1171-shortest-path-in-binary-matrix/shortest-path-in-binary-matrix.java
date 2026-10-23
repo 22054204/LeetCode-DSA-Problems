@@ -1,38 +1,38 @@
-// BFS
 class Solution {
     public int shortestPathBinaryMatrix(int[][] grid) {
         int[][] direction = {{0,1}, {1,0}, {1,1}, {0,-1}, {-1,0}, {-1,-1}, {1,-1}, {-1,1}};
-        int n = grid.length;
-        int m = grid[0].length;
-        if(grid[0][0]==1 || grid[m-1][n-1]==1) return -1;
-        
-        int length = 0;
-        Queue<int[]> queue = new LinkedList<>();
-        queue.offer(new int[]{0, 0});
-        length++;
-        grid[0][0] = 1;
+        int m = grid.length;
+        int n = grid[0].length;
+        if (grid[0][0] == 1 || grid[m-1][n-1] == 1) return -1;
 
-        while(!queue.isEmpty()){
-            int size = queue.size();
-            for(int i=0;i<size;i++){
-                int[] arr = queue.poll();
-                int r = arr[0]; //r -> row
-                int c = arr[1]; //c -> col
-                if(r==m-1 && c==n-1) return length;
-                
-                // Visit all 8 neighbouring cells
-                for(int k=0;k<8;k++){
-                    int nr = r + direction[k][0]; // nr -> new row
-                    int nc = c + direction[k][1]; // nc -> new col
+        int[][] distance1 = new int[m][n];
+        for(int[] mat:distance1){
+            Arrays.fill(mat, Integer.MAX_VALUE);
+        }
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Arrays::compare);
+        distance1[0][0] = 0;
+        pq.offer(new int[]{0, 0, 0}); // [distance, x_coordinate, y_coordinate]
 
-                    if(nr>=0 && nc>=0 && nr<m && nc<n && grid[nr][nc]==0){
-                        queue.offer(new int[]{nr, nc});
-                        grid[nr][nc] = 1;
-                    }
+        while(!pq.isEmpty()){
+            int[] arr = pq.remove();
+            int distance2 = arr[0];
+            int x_coordinate = arr[1];
+            int y_coordinate = arr[2];
+            if(distance2 > distance1[x_coordinate][y_coordinate]) continue;
+            if (x_coordinate == m - 1 && y_coordinate == n - 1) return distance2+1;
+            for(int[] dir:direction){
+                int x = dir[0]+x_coordinate;
+                int y = dir[1]+y_coordinate;
+                if(isSafe(grid, x, y, m) && distance1[x][y]>distance2+1){
+                    distance1[x][y] = distance2+1;
+                    pq.offer(new int[]{distance1[x][y], x, y});
+                    grid[x][y] = 1;
                 }
             }
-            length++;
         }
         return -1;
+    }
+    public boolean isSafe(int[][] grid, int a, int b, int n){
+        return a>=0 && b>=0 && a<n && b<n && grid[a][b]==0;
     }
 }

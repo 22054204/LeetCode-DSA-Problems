@@ -11,6 +11,7 @@ class Solution {
         }
         PriorityQueue<int[]> pq = new PriorityQueue<>(Arrays::compare);
         distance1[0][0] = 0;
+        grid[0][0] = 1;
         pq.offer(new int[]{0, 0, 0}); // [distance, x_coordinate, y_coordinate]
 
         while(!pq.isEmpty()){

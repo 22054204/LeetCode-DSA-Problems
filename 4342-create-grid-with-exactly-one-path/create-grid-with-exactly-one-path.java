@@ -3,7 +3,7 @@ class Solution {
         String[] arr = new String[m];
         StringBuilder s = new StringBuilder();
         for(int i=0;i<m;i++){
-            s = new StringBuilder();
+            s.setLength(0); 
             for(int j=0;j<n;j++){
                 if(i==0 || j==n-1) s.append('.');
                 else s.append('#');

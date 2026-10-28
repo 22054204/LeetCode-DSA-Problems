@@ -1,37 +1,66 @@
 class Solution {
-    public int minCostConnectPoints(int[][] edges) {
-        int V = edges.length;
-        boolean[] visited = new boolean[V];
-        Map<Integer, List<int[]>> graph = new HashMap<>();
-        for(int i=0;i<V;i++){
-            graph.put(i, new ArrayList<>());
+    static int[] parent;
+    static int[] rank;
+    
+    public static int find(int x) {
+        if (parent[x] == x) {
+            return x;
         }
-        int node = 0;
-        for(int i=0;i<V;i++){
-            for(int j=i+1;j<V;j++){
-                int u = i; 
-                int v = j;
-                int w = Math.abs(edges[u][0] - edges[v][0]) + Math.abs(edges[u][1] - edges[v][1]);
+        return parent[x] = find(parent[x]);  // path compression
+    }
 
-                graph.get(u).add(new int[]{v, w});
-                graph.get(v).add(new int[]{u, w});
+    public static void union(int x, int y) {
+        int x_parent = find(x);
+        int y_parent = find(y);
+        if (x_parent != y_parent) {
+            if (rank[x_parent] < rank[y_parent]) {
+                parent[x_parent] = y_parent;
+            } else if (rank[x_parent] > rank[y_parent]) {
+                parent[y_parent] = x_parent;
+            } else {
+                parent[y_parent] = x_parent;
+                rank[x_parent]++;
             }
         }
-        PriorityQueue<int[]> pq = new PriorityQueue<>(Arrays::compare);
-        pq.offer(new int[]{0, 0});
+    }
+    public int minCostConnectPoints(int[][] points) {
+        int V = points.length;
+        parent = new int[V];
+        for(int i=0;i<V;i++){
+            parent[i] = i;
+        }
+        rank = new int[V];
+
+        int[][] edges = new int[V*(V-1)/2][3];
+
+        int k = 0;
+        for (int i=0;i<V;i++){
+            for (int j=i+1;j<V;j++){
+                int u = i;
+                int v = j;
+                int w = Math.abs(points[u][0] - points[v][0]) + Math.abs(points[u][1] - points[v][1]);
+
+                edges[k++] = new int[]{u, v, w};
+            }
+        }
+
+        Arrays.sort(edges, (a, b)->Integer.compare(a[2], b[2]));
+        return kruskal(edges);
+    }
+    public int kruskal(int[][] edges){
         int sum = 0;
-        while(!pq.isEmpty()){
-            int[] arr = pq.remove();
-            int w = arr[0];
-            int u = arr[1];
-            if(visited[u]) continue;
-            visited[u] = true;
-            sum+=w;
-            for(int[]edge:graph.get(u)){
-                int v_ = edge[0];
-                int w_ = edge[1];
-                if(visited[v_]) continue;
-                pq.offer(new int[]{w_, v_});
+        
+        for(int[] edge:edges){
+            int u = edge[0];
+            int v = edge[1];
+            int w = edge[2];
+            
+            int parent_u = find(u);
+            int parent_v = find(v);
+            
+            if(parent_u!=parent_v){
+                sum+=w;
+                union(u, v);
             }
         }
         return sum;

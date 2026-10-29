@@ -31,7 +31,7 @@ class Solution {
         }
         rank = new int[V];
 
-        int[][] edges = new int[V*(V-1)/2][3];
+        List<int[]> edges = new ArrayList<>();
 
         int k = 0;
         for (int i=0;i<V;i++){
@@ -40,14 +40,14 @@ class Solution {
                 int v = j;
                 int w = Math.abs(points[u][0] - points[v][0]) + Math.abs(points[u][1] - points[v][1]);
 
-                edges[k++] = new int[]{u, v, w};
+                edges.add(new int[]{u, v, w});
             }
         }
 
-        Arrays.sort(edges, (a, b)->Integer.compare(a[2], b[2]));
+        Collections.sort(edges, (a, b)->Integer.compare(a[2], b[2]));
         return kruskal(edges);
     }
-    public int kruskal(int[][] edges){
+    public int kruskal(List<int[]> edges){
         int sum = 0;
         
         for(int[] edge:edges){

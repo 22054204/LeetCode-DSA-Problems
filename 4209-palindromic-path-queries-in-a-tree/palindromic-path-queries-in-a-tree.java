@@ -1,133 +1,167 @@
-
-import java.util.*;
-
 class Solution {
-    int[] bit;
     int n;
+    List<Integer>[] adj;
+    int[] tin, tout, depth;
+    int[] eulerTour;
+    int time;
+    int[][] ancestorTable;
+    int cols;
+    int[] segmentTree;
 
-    void upd(int i, int v) {
-        for (i++; i <= n; i += i & -i) bit[i] ^= v;
+    void dfs(int node, int parent, int d, String s) {
+        depth[node] = d;
+        ancestorTable[node][0] = parent;
+
+        tin[node] = time;
+        eulerTour[time++] = 1 << (s.charAt(node) - 'a');
+
+        for (int child : adj[node]) {
+            if (child == parent) continue;
+            dfs(child, node, d + 1, s);
+        }
+
+        tout[node] = time;
+        eulerTour[time++] = 1 << (s.charAt(node) - 'a');
     }
 
-    int qry(int i) {
-        int r = 0;
-        for (i++; i > 0; i -= i & -i) r ^= bit[i];
-        return r;
+    void buildAncestorTable() {
+        for (int j = 1; j < cols; j++) {
+            for (int node = 0; node < n; node++) {
+                if (ancestorTable[node][j - 1] != -1) {
+                    ancestorTable[node][j] =
+                        ancestorTable[ancestorTable[node][j - 1]][j - 1];
+                }
+            }
+        }
+    }
+
+    int getLCA(int u, int v) {
+        if (depth[u] < depth[v]) {
+            int temp = u;
+            u = v;
+            v = temp;
+        }
+
+        int diff = depth[u] - depth[v];
+
+        for (int j = 0; j < cols; j++) {
+            if ((diff & (1 << j)) != 0) {
+                u = ancestorTable[u][j];
+            }
+        }
+
+        if (u == v) return u;
+
+        for (int j = cols - 1; j >= 0; j--) {
+            if (ancestorTable[u][j] != ancestorTable[v][j]) {
+                u = ancestorTable[u][j];
+                v = ancestorTable[v][j];
+            }
+        }
+
+        return ancestorTable[u][0];
+    }
+
+    void buildSegmentTree(int i, int l, int r, int[] nums) {
+        if (l == r) {
+            segmentTree[i] = nums[l];
+            return;
+        }
+
+        int mid = l + (r - l) / 2;
+        buildSegmentTree(2 * i + 1, l, mid, nums);
+        buildSegmentTree(2 * i + 2, mid + 1, r, nums);
+        segmentTree[i] = segmentTree[2 * i + 1] ^ segmentTree[2 * i + 2];
+    }
+
+    void updateSegTree(int index, int val, int i, int l, int r) {
+        if (l == r) {
+            segmentTree[i] = val;
+            return;
+        }
+
+        int mid = l + (r - l) / 2;
+
+        if (index <= mid) {
+            updateSegTree(index, val, 2 * i + 1, l, mid);
+        } else {
+            updateSegTree(index, val, 2 * i + 2, mid + 1, r);
+        }
+
+        segmentTree[i] = segmentTree[2 * i + 1] ^ segmentTree[2 * i + 2];
+    }
+
+    int querySegmentTree(int start, int end, int i, int l, int r) {
+        if (l > end || r < start) return 0;
+
+        if (l >= start && r <= end) return segmentTree[i];
+
+        int mid = l + (r - l) / 2;
+
+        return querySegmentTree(start, end, 2 * i + 1, l, mid)
+            ^ querySegmentTree(start, end, 2 * i + 2, mid + 1, r);
     }
 
     public List<Boolean> palindromePath(int n, int[][] edges, String s, String[] queries) {
         this.n = n;
-        int[] hd = new int[n];
-        Arrays.fill(hd, -1);
-        int[] nx = new int[2 * (n - 1) + 1];
-        int[] to = new int[2 * (n - 1) + 1];
-        int ec = 0;
+        adj = new ArrayList[n];
 
-        for (int[] e : edges) {
-            to[ec] = e[1];
-            nx[ec] = hd[e[0]];
-            hd[e[0]] = ec++;
-            to[ec] = e[0];
-            nx[ec] = hd[e[1]];
-            hd[e[1]] = ec++;
+        for (int i = 0; i < n; i++) {
+            adj[i] = new ArrayList<>();
         }
 
-        int[] order = new int[n], parent = new int[n], depth = new int[n];
-        int qh = 0, qt = 0;
-        order[qt++] = 0;
-        parent[0] = -1;
-
-        while (qh < qt) {
-            int u = order[qh++];
-            for (int e = hd[u]; e != -1; e = nx[e]) {
-                int v = to[e];
-                if (v != parent[u]) {
-                    parent[v] = u;
-                    depth[v] = depth[u] + 1;
-                    order[qt++] = v;
-                }
-            }
+        for (int[] edge : edges) {
+            int u = edge[0], v = edge[1];
+            adj[u].add(v);
+            adj[v].add(u);
         }
 
-        int[] sz = new int[n], heavy = new int[n];
-        Arrays.fill(sz, 1);
-        Arrays.fill(heavy, -1);
+        tin = new int[n];
+        tout = new int[n];
+        depth = new int[n];
+        eulerTour = new int[2 * n];
+        time = 0;
 
-        for (int i = n - 1; i >= 1; i--) {
-            int x = order[i], p = parent[x];
-            sz[p] += sz[x];
+        cols = (int) (Math.log(n) / Math.log(2)) + 1;
+        ancestorTable = new int[n][cols];
+
+        for (int[] row : ancestorTable) {
+            Arrays.fill(row, -1);
         }
 
-        for (int i = n - 1; i >= 1; i--) {
-            int x = order[i], p = parent[x];
-            if (heavy[p] == -1 || sz[x] > sz[heavy[p]]) heavy[p] = x;
-        }
+        dfs(0, -1, 0, s);
+        buildAncestorTable();
 
-        int[] mask = new int[n], base = new int[n];
-        int[] tin = new int[n], nextPos = new int[n], chead = new int[n];
+        segmentTree = new int[8 * n];
+        buildSegmentTree(0, 0, 2 * n - 1, eulerTour);
 
-        for (int i = 0; i < n; i++) mask[i] = 1 << (s.charAt(i) - 'a');
-
-        base[0] = mask[0];
-        tin[0] = 0;
-        nextPos[0] = 1;
-        chead[0] = 0;
-
-        for (int i = 1; i < n; i++) {
-            int x = order[i], p = parent[x];
-            base[x] = base[p] ^ mask[x];
-            tin[x] = nextPos[p];
-            nextPos[p] += sz[x];
-            nextPos[x] = tin[x] + 1;
-            chead[x] = heavy[p] == x ? chead[p] : x;
-        }
-
-        bit = new int[n + 1];
-        List<Boolean> ans = new ArrayList<>(queries.length);
+        List<Boolean> result = new ArrayList<>();
 
         for (String q : queries) {
-            boolean isUpdate = q.charAt(0) == 'u';
-            int pos = isUpdate ? 7 : 6;
-            int u = 0;
+            String[] parts = q.split(" ");
 
-            while (q.charAt(pos) != ' ') {
-                u = u * 10 + q.charAt(pos) - '0';
-                pos++;
-            }
+            if (parts[0].equals("update")) {
+                int node = Integer.parseInt(parts[1]);
+                char c = parts[2].charAt(0);
+                int charValue = 1 << (c - 'a');
 
-            pos++;
-
-            if (isUpdate) {
-                int nm = 1 << (q.charAt(pos) - 'a');
-                int delta = mask[u] ^ nm;
-
-                if (delta != 0) {
-                    mask[u] = nm;
-                    upd(tin[u], delta);
-                    int end = tin[u] + sz[u];
-                    if (end < n) upd(end, delta);
-                }
+                updateSegTree(tin[node], charValue, 0, 0, 2 * n - 1);
+                updateSegTree(tout[node], charValue, 0, 0, 2 * n - 1);
+                s = s.substring(0, node) + c + s.substring(node + 1);
             } else {
-                int v = 0;
+                int u = Integer.parseInt(parts[1]);
+                int v = Integer.parseInt(parts[2]);
 
-                while (pos < q.length()) {
-                    v = v * 10 + q.charAt(pos) - '0';
-                    pos++;
-                }
+                int lca = getLCA(u, v);
 
-                int a = u, b = v;
+                int mask = querySegmentTree(0, tin[u], 0, 0, 2 * n - 1)
+                    ^ querySegmentTree(0, tin[v], 0, 0, 2 * n - 1)
+                    ^ (1 << (s.charAt(lca) - 'a'));
 
-                while (chead[a] != chead[b]) {
-                    if (depth[chead[a]] > depth[chead[b]]) a = parent[chead[a]];
-                    else b = parent[chead[b]];
-                }
-
-                int l = depth[a] < depth[b] ? a : b;
-                int res = base[u] ^ qry(tin[u]) ^ base[v] ^ qry(tin[v]) ^ mask[l];
-                ans.add((res & (res - 1)) == 0);
+                result.add((mask & (mask - 1)) == 0);
             }
         }
 
-        return ans;
+        return result;
     }
 }

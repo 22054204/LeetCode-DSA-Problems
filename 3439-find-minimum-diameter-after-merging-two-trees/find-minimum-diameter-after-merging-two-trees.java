@@ -3,7 +3,7 @@ class Solution {
         int d1 = solve(edges1);
         int d2 = solve(edges2);
 
-        int mergedDiameter = (d1 + 1) / 2 + (d2 + 1) / 2 + 1;
+        int mergedDiameter = (d1+1)/2 + (d2+1)/2 + 1;
 
         return Math.max(Math.max(d1, d2), mergedDiameter);
     }

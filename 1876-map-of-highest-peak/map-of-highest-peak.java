@@ -4,8 +4,8 @@ class Solution {
         int m = grid.length;
         int n = grid[0].length;
         int[][] result = new int[m][n];
+        for(int[]mat:result) Arrays.fill(mat, -1);
         Queue<int[]> queue = new LinkedList<>();
-        boolean[][] visited = new boolean[m][n];
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(grid[i][j]==1){
@@ -25,9 +25,8 @@ class Solution {
                 for(int[] dist:distance){
                     int i=x+dist[0];
                     int j=y+dist[1];
-                    if(i>=0 && j>=0 && i<m && j<n && !visited[i][j] && grid[i][j]==0){
+                    if(i>=0 && j>=0 && i<m && j<n && result[i][j]==-1){
                         result[i][j] = heightOfNextLayer;
-                        visited[i][j] = true;
                         queue.offer(new int[]{i, j});
                     }
                 }

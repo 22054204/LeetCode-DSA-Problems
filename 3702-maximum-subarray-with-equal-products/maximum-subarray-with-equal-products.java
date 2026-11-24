@@ -1,22 +1,22 @@
 class Solution {
     public int maxLength(int[] nums) {
+        int prod;
+        int lcm;
+        int gcd;
         int maxLen = 1;
         int i=0;
+        int j;
         while(i<nums.length){
-            int j=i;
+            j=i;
             while(j<nums.length){
-                int prod = product(nums, i, j);
-                int lcm = lcm(nums, i, j);
-                int gcd = gcd(nums, i, j);
-                
-                // System.out.println("i->" + i + " j->" + j);
-                // System.out.println("prod -" + prod);
-                // System.out.println("lcm -" + lcm);
-                // System.out.println("gcd - " + gcd);
+                prod = product(nums, i, j);
+                lcm = lcm(nums, i, j);
+                gcd = gcd(nums, i, j);
 
                 if(prod == lcm*gcd){
                     maxLen = Math.max(maxLen, j-i+1);
                 }
+
                 j++;
             }
             i++;
@@ -31,10 +31,7 @@ class Solution {
         return lcm;
     }
     public int findLCM(int a, int b) {
-        if (a==0 || b==0) {
-            return 0;
-        }
-        return Math.abs(a/findGcd(a, b) * b);
+        return a==0||b==0?0:Math.abs(a/findGcd(a,b)*b);
     }
     public int product(int[] nums, int st, int end){
         int prod = 1;
@@ -51,7 +48,6 @@ class Solution {
         return gcd;
     }
     public int findGcd(int a, int b){
-        if(a==0) return b;
-        return findGcd(b%a, a);
+        return a==0?b:findGcd(b%a, a);
     }
 }
